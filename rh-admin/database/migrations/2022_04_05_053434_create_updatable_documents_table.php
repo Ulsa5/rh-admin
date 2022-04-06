@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',150);
             $table->string('number',45);
-            $table->string('verificador',45);
+            $table->string('verificator',45);
             $table->date('expiration');
 
             $table->unsignedBigInteger('employee_id');

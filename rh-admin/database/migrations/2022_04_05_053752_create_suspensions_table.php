@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('suspensions', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->string('reason',150);
             $table->text('comment',250);
             
