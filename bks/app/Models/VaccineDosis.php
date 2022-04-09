@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class VaccineDosis extends Model
 {
     use HasFactory;
-
-    public function municipalities()
+    
+    public function vaccines()
     {
-        return $this->hasMany('App\Models\Municipality');
+        return $this->belongsToMany('App\Models\Vaccine');
     }
 }

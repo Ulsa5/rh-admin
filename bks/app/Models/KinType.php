@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class KinType extends Model
 {
     use HasFactory;
 
-    public function municipalities()
+    //Kin es un pariente
+
+    public function kins()
     {
-        return $this->hasMany('App\Models\Municipality');
+        return $this->hasMany('App\Models\Kin');
     }
+    
 }

@@ -13,4 +13,9 @@ class Municipality extends Model
     {
         return $this->hasMany('App\Models\Employee');
     }
+
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Department');
+    }
 }

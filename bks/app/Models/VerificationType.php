@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class VerificationType extends Model
 {
     use HasFactory;
 
-    public function municipalities()
+    public function verification()
     {
-        return $this->hasMany('App\Models\Municipality');
+        return $this->belongsTo('App\Models\Verification');
     }
 }

@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class ProjectType extends Model
 {
     use HasFactory;
 
-    public function municipalities()
+    //Relación uno a muchos inversa
+    public function projects()
     {
-        return $this->hasMany('App\Models\Municipality');
+        return $this->hasMany('App\Models\Project');
     }
 }
