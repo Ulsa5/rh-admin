@@ -101,6 +101,14 @@ return new class extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
 
+            //Cambio menor
+            $table->unsignedBigInteger('municipality_id');
+
+            $table->foreign('municipality_id')
+            ->references('id')->on('municipalities')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

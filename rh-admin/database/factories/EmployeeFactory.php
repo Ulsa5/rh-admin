@@ -40,7 +40,9 @@ class EmployeeFactory extends Factory
             'company_id' => $this->faker->numberBetween(1,6),
             'job_id' => $this->faker->numberBetween(1,10),
             'project_id' => $this->faker->numberBetween(1,10),
-            'insurance_id' => $this->faker->numberBetween(1,10) 
+            'insurance_id' => $this->faker->numberBetween(1,10),
+            //Cambios menores
+            'municipality_id' => $this->faker->numberBetween(1,5),
         ];
     }
 }

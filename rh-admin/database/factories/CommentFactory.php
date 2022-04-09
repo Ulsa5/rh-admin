@@ -18,7 +18,7 @@ class CommentFactory extends Factory
     {
         return [
             'date' => $this->faker->date(),
-            'comment' => $this->faker->paragraph(),
+            'comment' => $this->faker->sentence(),
             'employee_id'=> $this->faker->numberBetween(1,10)
         ];
     }

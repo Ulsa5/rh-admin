@@ -19,17 +19,18 @@ return new class extends Migration
             $table->string('name',150);
 
             $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('employee_id');
+            // $table->unsignedBigInteger('employee_id');
 
             $table->foreign('department_id')
                     ->references('id')->on('departments')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
-            $table->foreign('employee_id')
-                    ->references('id')->on('employees')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            //Cambios menores
+            // $table->foreign('employee_id')
+            //         ->references('id')->on('employees')
+            //         ->onUpdate('cascade')
+            //         ->onDelete('cascade');
 
             $table->timestamps();
         });

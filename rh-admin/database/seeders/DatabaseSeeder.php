@@ -62,7 +62,8 @@ class DatabaseSeeder extends Seeder
         Blood::factory(10)->create();
         // CivilStatus::factory(5)->create();
         // Company::factory(3)->create();
-        Department::factory(22)->create();
+        $this->call(DepartmentSeeder::class);
+        // Department::factory(22)->create();
         // Genders::factory(10)->create();
         KinType::factory(10)->create();
         Permission::factory(10)->create();
@@ -83,6 +84,8 @@ class DatabaseSeeder extends Seeder
         //Necesita el project_type_id
         Project::factory(10)->create();
 
+        $this->call(MunicipalitySeeder::class);
+        // Municipality::factory(100)->create();
 
         //Employee
         Employee::factory(50)->create();
@@ -93,7 +96,7 @@ class DatabaseSeeder extends Seeder
         Capacitation::factory(10)->create();
         Comment::factory(10)->create();
         License::factory(10)->create();
-        Municipality::factory(100)->create();
+        
         Poligraph::factory(10)->create();
         Suspension::factory(15)->create();
         UpdatableDocument::factory(15)->create();

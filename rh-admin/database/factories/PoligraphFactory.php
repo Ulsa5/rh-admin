@@ -19,7 +19,7 @@ class PoligraphFactory extends Factory
         return [
             'date' => $this->faker->date(),
             'result' => $this->faker->sentence(),
-            'comment' => $this->faker->paragraph(),
+            'comment' => $this->faker->sentence(),
             'employee_id' => $this->faker->numberBetween(1,10)
         ];
     }
