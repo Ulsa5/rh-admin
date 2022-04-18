@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\CivilStatus;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\Console\Input\Input;
 
 class CivilStatusController extends Controller
 {
@@ -14,7 +17,14 @@ class CivilStatusController extends Controller
      */
     public function index()
     {
-        //
+        // //return "Vista index";
+        // $civilstatuses = CivilStatus::all();
+        // //return  $civilstatuses;
+
+        // return response()->json($civilstatuses);
+        $civilstatuses = CivilStatus::all();
+
+        return view('civilstatus.index', compact('civilstatuses'));
     }
 
     /**
@@ -25,6 +35,7 @@ class CivilStatusController extends Controller
     public function create()
     {
         //
+        return view('civilstatus.create');
     }
 
     /**
@@ -35,7 +46,15 @@ class CivilStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $civilstatus = new CivilStatus();
+
+        $civilstatus->name = $request->estadocivil;
+        $civilstatus->comment = $request->comentario;
+        $civilstatus->save();
+
+        return Redirect::to('civilstatus')->with('notice', 'Estado Civil agregado correctamente.');
+
+        // return redirect()->route('civilstatus.index');
     }
 
     /**

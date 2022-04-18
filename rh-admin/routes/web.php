@@ -25,6 +25,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resource('/civilstatus', 'App\Http\Controllers\CivilStatusController');
 });
 
 route::get('/projects', function()

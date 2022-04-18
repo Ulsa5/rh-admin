@@ -9,6 +9,11 @@ class CivilStatus extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'comment',
+    ];
+
     public function employees()
     {
         return $this->hasMany('App\Models\Employee');
