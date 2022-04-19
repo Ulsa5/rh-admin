@@ -14,6 +14,13 @@
     <!-- Font Awesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 
+    <!-- Tailwind css -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Sweet Alert
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+
     <title>RH Admin</title>
   </head>
   <body>
@@ -34,14 +41,14 @@
                     </td>
                     <td style="width: 2px;">
                         <h5>
-                            <a target="_blank" href="{{url('https://twitter.com/corporacionasi1')}}">
+                            <a target="_blank" href="{{url('https://twitter.com/corporacion_asi')}}">
                                 <i class="text-info fa-brands fa-twitter"></i>
                             </a>
                         </h5>
                     </td>
                     <td style="width: 2px;">
                         <h5>
-                            <a target="_blank" href="{{url('https://instagram.com/corporacionasi1')}}">
+                            <a target="_blank" href="{{url('https://www.instagram.com/corporacion_asi')}}">
                                 <i class="text-warning fa-brands fa-instagram "></i>
                             </a>
                         </h5>
@@ -58,6 +65,12 @@
         </div>
     </div>
     <!-- End Footer -->
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    @yield('scripts')
 
     </body>
 </html>
