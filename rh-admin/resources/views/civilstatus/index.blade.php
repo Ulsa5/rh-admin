@@ -54,10 +54,10 @@
                                 <td>{{ $civilstatus->name }}</td>
                                 <td>{{ $civilstatus->comment }}</td>
                                 <td>
-                                    <a href="{{ route('civilstatus.edit', $civilstatus->id) }}" class="btn btn-success">
+                                    <a href="{{ route('civilstatus.edit', $civilstatus) }}" class="btn btn-success">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <form action="{{ route('civilstatus.destroy', $civilstatus->id) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('civilstatus.destroy', $civilstatus) }}" method="POST" class="d-inline formulario-eliminar">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">
@@ -69,6 +69,8 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $civilstatuses->links() }}
+
                     @else
                     <p>No se encontró ningún registro</p>
                     @endif
@@ -77,4 +79,52 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<!-- Sweet Alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('eliminar')=='ok')
+<script>
+    Swal.fire(
+        'Eliminado!',
+        'Registro eliminado correctamente.',
+        'success'
+        )
+</script>
+@elseif (session('alta')=='ok')
+<script>
+    Swal.fire(
+        'Exito!',
+        'Registro agreado correctamente.',
+        'success'
+        )
+</script>
+@endif
+
+<script>
+    $('.formulario-eliminar').submit(function(e){
+        e.preventDefault();
+
+        Swal.fire({
+        title: 'Estas seguro?',
+        text: "Esta acción no se puede deshacer!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, borrar registro!',
+        cancelButtonText: 'Cancelar'
+        }).then((result) => {
+        if (result.isConfirmed) {
+
+        this.submit();
+        }
+        })
+    });
+
+
+</script>
 @endsection
