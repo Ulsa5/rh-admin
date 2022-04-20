@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset('js/jquery-ui-1.13.1.custom/jquery-ui.min.css') }}">
+@endsection
+
 <div class="container">
     <h1 class="text-center mt-3">RH Admin</h1>
 </div>
@@ -23,12 +27,34 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h4>Listado de Estados Civiles</h4>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <a href="{{ route('civilstatus.create') }}" class="btn btn-primary">
+                            <br>
+                            <a href="{{ route('civilstatus.create') }}" class="btn btn-primary mt-3">
                                 <i class="fa fa-plus"></i>
                                 Nuevo Estado Civil
                             </a>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="row">
+                            </div>
+                            <br>
+                            <div class="row"></div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <form action="{{ route('civilstatus.index') }}" method="GET" class="form-inline">
+                                        <div class="form-group mx-0">
+                                            <input type="text" id="search" name="search" class="form-control mt-4 mx-10" placeholder="Buscar">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-primary mt-4 mx-2">
+                                            <i class="fa-solid fa-magnifying-glass"></i>&nbsp;
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,6 +111,27 @@
 
 <!-- Sweet Alert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- JQuery UI --}}
+<script src="{{ asset('js/jquery-ui-1.13.1.custom/jquery-ui.min.js') }}"></script>
+
+<script>
+    $('#search').autocomplete({
+        source: function(request, response){
+            $.ajax({
+                url:"{{ route('search.civilstatuses') }}",
+                dataType: 'json',
+                data:{
+                    term: request.term
+                },
+                success: function(data){
+                    response(data);
+                }
+            });
+        }
+    });
+
+</script>
 
 @if (session('eliminar')=='ok')
 <script>

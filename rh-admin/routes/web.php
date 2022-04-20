@@ -27,6 +27,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('/civilstatus', 'App\Http\Controllers\CivilStatusController');
+    Route::get('search/civilstatuses','App\Http\Controllers\SearchController@civilstatuses')->name('search.civilstatuses');
 });
 
 route::get('/projects', function()
@@ -36,3 +37,5 @@ route::get('/projects', function()
     // return $p;
 
 });
+
+
