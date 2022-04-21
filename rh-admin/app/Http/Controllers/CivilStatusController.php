@@ -12,14 +12,9 @@ class CivilStatusController extends Controller
 
     public function index(Request $request)
     {
-        // $busqueda = $request->get('search');
-        // $civilstatus = CivilStatus::where('name', 'LIKE', '%' . $busqueda . '%')
-        //     ->orderBy('id', 'desc')
-        //     ->paginate(5);
-        // return view('civilstatus.index', compact('civilstatus'));
-
+        
         // $civilstatuses = CivilStatus::latest()->take(10)->get();
-        $civilstatuses = CivilStatus::paginate(10);
+        $civilstatuses = CivilStatus::all();
         // $civilstatuses = CivilStatus::orderBy('id','desc')->paginate(5);
 
         return view('civilstatus.index', compact('civilstatuses'));
@@ -64,7 +59,7 @@ class CivilStatusController extends Controller
         $civilstatus->comment = $request->comentario;
         $civilstatus->save();
 
-        return Redirect::to('civilstatus')->with('notice', 'Estado Civil actualizado correctamente.');
+        return Redirect::to('civilstatus')->with('edited','ok')->with('notice', 'Estado Civil actualizado correctamente.');
     }
 
 

@@ -27,7 +27,8 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('/civilstatus', 'App\Http\Controllers\CivilStatusController');
-    Route::get('search/civilstatuses','App\Http\Controllers\SearchController@civilstatuses')->name('search.civilstatuses');
+    Route::resource('/bank', 'App\Http\Controllers\BankController');
+
 });
 
 route::get('/projects', function()

@@ -27,23 +27,22 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Listado de Estados Civiles</h4>
+                            <h4>Listado de Bancos del Sistema</h4>
                             <br>
-                            <a href="{{ route('civilstatus.create') }}" class="btn btn-primary mt-2 mb-2">
+                            <a href="{{ route('bank.create') }}" class="btn btn-primary mt-2 mb-2">
                                 <i class="fa fa-plus"></i>
-                                Nuevo Estado Civil
+                                Agregar Banco
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body mt-3">
-                    @if($civilstatuses->count())
-                    <table id="tabla-estados-civiles" class="stripe hover order-colum row-border text-center">
+                    @if($banks->count())
+                    <table id="tabla-bancos" class="stripe hover order-colum row-border text-center">
                         <thead class="bg-primary">
                             <tr class="text-white">
                                 <th>No.</th>
                                 <th>Nombre</th>
-                                <th>Commentario</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -52,16 +51,15 @@
                                 $i = 0;
                             @endphp
 
-                            @foreach($civilstatuses as $civilstatus)
+                            @foreach($banks as $bank)
                             <tr>
                                 <td>{{ $i+=1 }}</td>
-                                <td>{{ $civilstatus->name }}</td>
-                                <td>{{ $civilstatus->comment }}</td>
+                                <td>{{ $bank->name }}</td>
                                 <td>
-                                    <a href="{{ route('civilstatus.edit', $civilstatus) }}" class="btn btn-success">
+                                    <a href="{{ route('bank.edit', $bank) }}" class="btn btn-success">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <form action="{{ route('civilstatus.destroy', $civilstatus) }}" method="POST" class="d-inline formulario-eliminar">
+                                    <form action="{{ route('bank.destroy', $bank) }}" method="POST" class="d-inline formulario-eliminar">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">
@@ -96,7 +94,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#tabla-estados-civiles').DataTable({
+        $('#tabla-bancos').DataTable({
             "pageLength": 10,
             // "pagingType": "simple",
             // "pagingType": "numbers",
@@ -155,7 +153,6 @@
         }
         })
     });
-
-
+    
 </script>
 @endsection

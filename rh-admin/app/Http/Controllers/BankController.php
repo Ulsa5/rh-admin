@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bank;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class BankController extends Controller
 {
@@ -14,7 +15,9 @@ class BankController extends Controller
      */
     public function index()
     {
-        //
+        $banks = Bank::all();
+
+        return view('bank.index', compact('banks'));
     }
 
     /**
@@ -24,7 +27,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        //
+        return view('bank.create');
     }
 
     /**
@@ -35,7 +38,12 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bank = new Bank();
+
+        $bank->name = $request->bank;
+        $bank->save();
+
+        return Redirect::to('bank')->with('alta','ok')->with('notice', 'Banco agregado correctamente.');
     }
 
     /**
@@ -57,7 +65,7 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        //
+        return view('bank.edit', compact('bank'));
     }
 
     /**
@@ -69,7 +77,10 @@ class BankController extends Controller
      */
     public function update(Request $request, Bank $bank)
     {
-        //
+        $bank->name = $request->bank;
+        $bank->save();
+
+        return Redirect::to('bank')->with('edited','ok')->with('notice', 'Información del Banco actualizada correctamente.');
     }
 
     /**
@@ -80,6 +91,8 @@ class BankController extends Controller
      */
     public function destroy(Bank $bank)
     {
-        //
+        $bank->delete();
+
+        return Redirect::to('bank')->with('eliminar','ok')->with('notice', 'Información del banco eliminada correctamente.');
     }
 }
