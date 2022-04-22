@@ -4,82 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Models\Genders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class GendersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $genders = Genders::all();
+
+        return view('gender.index',compact('genders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('gender.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $gender = new Genders();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Genders  $genders
-     * @return \Illuminate\Http\Response
-     */
+        $gender->name = $request->genero;
+        $gender->save();
+        
+        return Redirect::to('gender')->with('alta','ok')->with('notice', 'Género agregado correctamente.');
+    }
+    
     public function show(Genders $genders)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Genders  $genders
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Genders $genders)
+    
+    public function edit(Genders $gender)
     {
-        //
+        return view('gender.edit', compact('gender'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Genders  $genders
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Genders $genders)
+    
+    public function update(Request $request, Genders $gender)
     {
-        //
+        $gender->name = $request->genero;
+        $gender->save();
+
+        return Redirect::to('gender')->with('edited','ok')->with('notice', 'Género actualizado correctamente.');
+    
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Genders  $genders
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Genders $genders)
+    
+    public function destroy(Genders $gender)
     {
-        //
+        $gender->delete();
+
+        return Redirect::to('gender')->with('eliminar','ok')->with('notice', 'Género eliminado correctamente.');
+    
     }
 }

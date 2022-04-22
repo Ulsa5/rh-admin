@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BankAccountType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class BankAccountTypeController extends Controller
 {
@@ -14,72 +15,49 @@ class BankAccountTypeController extends Controller
      */
     public function index()
     {
-        //
+        $bankAccountTypes = BankAccountType::all();
+        
+        return view('acctype.index', compact('bankAccountTypes'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('acctype.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $bankAccountType = new BankAccountType();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\BankAccountType  $bankAccountType
-     * @return \Illuminate\Http\Response
-     */
+        $bankAccountType->account_type = $request->cuenta;
+        $bankAccountType->save();
+
+        return Redirect::to('acctype')->with('alta','ok')->with('notice', 'Tipo de cuenta agregado correctamente.');
+    }
+    
     public function show(BankAccountType $bankAccountType)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\BankAccountType  $bankAccountType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BankAccountType $bankAccountType)
+    
+    public function edit(BankAccountType $acctype)
     {
-        //
+        return view('acctype.edit', compact('acctype'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BankAccountType  $bankAccountType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, BankAccountType $bankAccountType)
+    
+    public function update(Request $request, BankAccountType $acctype)
     {
-        //
+        $acctype->account_type = $request->cuenta;
+        $acctype->save();
+
+        return Redirect::to('acctype')->with('edited','ok')->with('notice', 'Tipo de Cuenta actualizado correctamente.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\BankAccountType  $bankAccountType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(BankAccountType $bankAccountType)
+    
+    public function destroy(BankAccountType $acctype)
     {
-        //
+        $acctype->delete();
+        
+        return Redirect::to('acctype')->with('eliminar','ok')->with('notice', 'Tipo de cuenta eliminado correctamente.');
     }
 }

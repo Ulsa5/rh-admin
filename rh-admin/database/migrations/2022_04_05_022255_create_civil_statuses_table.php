@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('civil_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name',45);
-            $table->text('comment',250);
+            $table->text('comment',250)->nullable();
             $table->timestamps();
         });
     }

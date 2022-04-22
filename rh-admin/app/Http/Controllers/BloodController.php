@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blood;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class BloodController extends Controller
 {
@@ -14,72 +15,50 @@ class BloodController extends Controller
      */
     public function index()
     {
-        //
+        $bloods = Blood::all();
+        
+        return view('blood.index', compact('bloods'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('blood.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $blood = new Blood();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Blood  $blood
-     * @return \Illuminate\Http\Response
-     */
+        $blood->name = $request->blood;
+        $blood->comment = $request->comentario;
+        $blood->save();
+
+        return Redirect::to('blood')->with('alta','ok')->with('notice', 'Tipo de sangre agregado correctamente.');
+    }
+    
     public function show(Blood $blood)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Blood  $blood
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Blood $blood)
     {
-        //
+        return view('blood.edit', compact('blood'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blood  $blood
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Blood $blood)
     {
-        //
-    }
+        $blood->name = $request->blood;
+        $blood->comment = $request->comentario;
+        $blood->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Blood  $blood
-     * @return \Illuminate\Http\Response
-     */
+        return Redirect::to('blood')->with('edited','ok')->with('notice', 'Tipo de Sangre actualizado correctamente.');
+    }
+    
     public function destroy(Blood $blood)
     {
-        //
+        $blood->delete();
+        
+        return Redirect::to('blood')->with('eliminar','ok')->with('notice', 'Tipo de Sangre eliminado correctamente.');
     }
 }

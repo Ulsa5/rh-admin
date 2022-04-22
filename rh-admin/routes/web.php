@@ -28,6 +28,11 @@ Route::middleware([
 
     Route::resource('/civilstatus', 'App\Http\Controllers\CivilStatusController');
     Route::resource('/bank', 'App\Http\Controllers\BankController');
+    Route::resource('/gender', 'App\Http\Controllers\GendersController');
+    Route::resource('/blood', 'App\Http\Controllers\BloodController');
+    Route::resource('/acctype', 'App\Http\Controllers\BankAccountTypeController');
+
+
 
 });
 
