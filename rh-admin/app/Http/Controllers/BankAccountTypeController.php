@@ -17,12 +17,12 @@ class BankAccountTypeController extends Controller
     {
         $bankAccountTypes = BankAccountType::all();
         
-        return view('acctype.index', compact('bankAccountTypes'));
+        return view('admin.acctypes.index', compact('bankAccountTypes'));
     }
     
     public function create()
     {
-        return view('acctype.create');
+        return view('admin.acctypes.create');
     }
     
     public function store(Request $request)
@@ -32,7 +32,9 @@ class BankAccountTypeController extends Controller
         $bankAccountType->account_type = $request->cuenta;
         $bankAccountType->save();
 
-        return Redirect::to('acctype')->with('alta','ok')->with('notice', 'Tipo de cuenta agregado correctamente.');
+        return Redirect::to('admin/acctypes')
+        ->with('alta','ok')
+        ->with('notice', 'Tipo de cuenta agregado correctamente.');
     }
     
     public function show(BankAccountType $bankAccountType)
@@ -43,7 +45,7 @@ class BankAccountTypeController extends Controller
     
     public function edit(BankAccountType $acctype)
     {
-        return view('acctype.edit', compact('acctype'));
+        return view('admin.acctypes.edit', compact('acctype'));
     }
     
     public function update(Request $request, BankAccountType $acctype)
@@ -51,13 +53,17 @@ class BankAccountTypeController extends Controller
         $acctype->account_type = $request->cuenta;
         $acctype->save();
 
-        return Redirect::to('acctype')->with('edited','ok')->with('notice', 'Tipo de Cuenta actualizado correctamente.');
+        return Redirect::to('admin/acctypes')
+        ->with('edited','ok')
+        ->with('notice', 'Tipo de Cuenta actualizado correctamente.');
     }
     
     public function destroy(BankAccountType $acctype)
     {
         $acctype->delete();
         
-        return Redirect::to('acctype')->with('eliminar','ok')->with('notice', 'Tipo de cuenta eliminado correctamente.');
+        return Redirect::to('admin/acctypes')
+        ->with('eliminar','ok')
+        ->with('notice', 'Tipo de cuenta eliminado correctamente.');
     }
 }

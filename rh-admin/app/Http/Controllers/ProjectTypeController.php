@@ -4,82 +4,61 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
-    }
+        $projecttypes = ProjectType::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        return view('admin.projecttypes.index', compact('projecttypes'));
+    }
+    
     public function create()
     {
-        //
+            return view('admin.projecttypes.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $projecttype = new ProjectType();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
+        $projecttype->name = $request->name;
+        $projecttype->save();
+
+        return Redirect::to('admin/projecttypes')
+        ->with('alta','ok')
+        ->with('notice', 'Tipo de Proyecto agregado correctamente.');
+    }
+    
     public function show(ProjectType $projectType)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProjectType $projectType)
+    
+    public function edit(ProjectType $projecttype)
     {
-        //
+        return view('admin.projecttypes.edit', compact('projecttype'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProjectType $projectType)
+    
+    public function update(Request $request, ProjectType $projecttype)
     {
-        //
+        $projecttype->name = $request->name;
+        $projecttype->save();
+
+        return Redirect::to('admin/projecttypes')
+        ->with('edited','ok')
+        ->with('notice', 'Tipo de Projecto actualizado correctamente.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProjectType $projectType)
+    
+    public function destroy(ProjectType $projecttype)
     {
-        //
+        $projecttype->delete();
+        
+        return Redirect::to('admin/projecttypes')
+        ->with('eliminar','ok')
+        ->with('notice', 'Información del Tipo de Proyecto eliminada correctamente.');
     }
 }

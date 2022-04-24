@@ -17,12 +17,12 @@ class BloodController extends Controller
     {
         $bloods = Blood::all();
         
-        return view('blood.index', compact('bloods'));
+        return view('admin.bloods.index', compact('bloods'));
     }
     
     public function create()
     {
-        return view('blood.create');
+        return view('admin.bloods.create');
     }
     
     public function store(Request $request)
@@ -33,7 +33,9 @@ class BloodController extends Controller
         $blood->comment = $request->comentario;
         $blood->save();
 
-        return Redirect::to('blood')->with('alta','ok')->with('notice', 'Tipo de sangre agregado correctamente.');
+        return Redirect::to('admin/bloods')
+        ->with('alta','ok')
+        ->with('notice', 'Tipo de sangre agregado correctamente.');
     }
     
     public function show(Blood $blood)
@@ -43,7 +45,7 @@ class BloodController extends Controller
     
     public function edit(Blood $blood)
     {
-        return view('blood.edit', compact('blood'));
+        return view('admin.bloods.edit', compact('blood'));
     }
     
     public function update(Request $request, Blood $blood)
@@ -52,13 +54,17 @@ class BloodController extends Controller
         $blood->comment = $request->comentario;
         $blood->save();
 
-        return Redirect::to('blood')->with('edited','ok')->with('notice', 'Tipo de Sangre actualizado correctamente.');
+        return Redirect::to('admin/bloods')
+        ->with('edited','ok')
+        ->with('notice', 'Tipo de Sangre actualizado correctamente.');
     }
     
     public function destroy(Blood $blood)
     {
         $blood->delete();
         
-        return Redirect::to('blood')->with('eliminar','ok')->with('notice', 'Tipo de Sangre eliminado correctamente.');
+        return Redirect::to('admin/bloods')
+        ->with('eliminar','ok')
+        ->with('notice', 'Tipo de Sangre eliminado correctamente.');
     }
 }

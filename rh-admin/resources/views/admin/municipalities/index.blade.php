@@ -27,22 +27,24 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Listado de Géneros (Sexos)</h4>
+                            <h4>Listado de Municipios</h4>
                             <br>
-                            <a href="{{ route('gender.create') }}" class="btn btn-primary mt-2 mb-2">
+                            <a href="{{ route('municipalities.create') }}" class="btn btn-primary mt-2 mb-2">
                                 <i class="fa fa-plus"></i>
-                                Agregar Género
+                                Agregar municipio
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body mt-3">
-                    @if($genders->count())
-                    <table id="tabla-estados-civiles" class="stripe hover order-colum row-border text-center">
+                    @if($municipalities->count())
+                    <table id="tabla" class="stripe hover order-colum row-border text-center">
                         <thead class="bg-primary">
                             <tr class="text-white">
                                 <th>No.</th>
+                                <th>Codigo</th>
                                 <th>Nombre</th>
+                                <th>Departamento</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -51,15 +53,17 @@
                                 $i = 0;
                             @endphp
 
-                            @foreach($genders as $gender)
+                            @foreach($municipalities as $municipality)
                             <tr>
                                 <td>{{ $i+=1 }}</td>
-                                <td>{{ $gender->name }}</td>
+                                <td>{{ $municipality->code }}</td>
+                                <td>{{ $municipality->name }}</td>
+                                <td>{{ $municipality->department->name }}</td>
                                 <td>
-                                    <a href="{{ route('gender.edit', $gender) }}" class="btn btn-success">
+                                    <a href="{{ route('municipalities.edit', $municipality) }}" class="btn btn-success">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <form action="{{ route('gender.destroy', $gender) }}" method="POST" class="d-inline formulario-eliminar">
+                                    <form action="{{ route('municipalities.destroy', $municipality) }}" method="POST" class="d-inline formulario-eliminar">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">
@@ -94,7 +98,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#tabla-estados-civiles').DataTable({
+        $('#tabla').DataTable({
             "pageLength": 10,
             // "pagingType": "simple",
             // "pagingType": "numbers",

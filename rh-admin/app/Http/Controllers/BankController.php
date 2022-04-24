@@ -17,7 +17,7 @@ class BankController extends Controller
     {
         $banks = Bank::all();
 
-        return view('bank.index', compact('banks'));
+        return view('admin.banks.index', compact('banks'));
     }
 
     /**
@@ -27,7 +27,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('bank.create');
+        return view('admin.banks.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class BankController extends Controller
         $bank->name = $request->bank;
         $bank->save();
 
-        return Redirect::to('bank')->with('alta','ok')->with('notice', 'Banco agregado correctamente.');
+        return Redirect::to('admin/banks')->with('alta','ok')->with('notice', 'Banco agregado correctamente.');
     }
 
     /**
@@ -65,7 +65,7 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        return view('bank.edit', compact('bank'));
+        return view('admin.banks.edit', compact('bank'));
     }
 
     /**
@@ -80,7 +80,9 @@ class BankController extends Controller
         $bank->name = $request->bank;
         $bank->save();
 
-        return Redirect::to('bank')->with('edited','ok')->with('notice', 'Información del Banco actualizada correctamente.');
+        return Redirect::to('admin/banks')
+        ->with('edited','ok')
+        ->with('notice', 'Información del Banco actualizada correctamente.');
     }
 
     /**
@@ -93,6 +95,8 @@ class BankController extends Controller
     {
         $bank->delete();
 
-        return Redirect::to('bank')->with('eliminar','ok')->with('notice', 'Información del banco eliminada correctamente.');
+        return Redirect::to('admin/banks')
+        ->with('eliminar','ok')
+        ->with('notice', 'Información del banco eliminada correctamente.');
     }
 }

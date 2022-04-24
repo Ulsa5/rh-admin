@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class DepartmentController extends Controller
 {
@@ -14,72 +15,58 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments = Department::all();
+
+        return view('admin.departments.index', compact('departments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
-    }
+        return view('admin.departments.create');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    }
+    
     public function store(Request $request)
     {
-        //
+        $department = new Department();
+
+        $department->code = $request->code;
+        $department->name = $request->name;
+        $department->save();
+
+        return Redirect::to('admin/departments')
+        ->with('alta','ok')
+        ->with('notice', 'Información de la empresa agregada correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function show(Department $department)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Department $department)
     {
-        //
+        return view('admin.departments.edit', compact('department'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Department $department)
     {
-        //
-    }
+        $department->code = $request->code;
+        $department->name = $request->name;
+        $department->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
+        return Redirect::to('admin/departments')
+        ->with('edited','ok')
+        ->with('notice', 'Información de la empresa actualizada correctamente.');
+
+    }
+    
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+        
+        return Redirect::to('admin/departments')
+        ->with('eliminar','ok')
+        ->with('notice', 'Información de la empresa eliminada correctamente.');
     }
 }

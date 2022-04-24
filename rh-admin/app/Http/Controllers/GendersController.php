@@ -13,13 +13,13 @@ class GendersController extends Controller
     {
         $genders = Genders::all();
 
-        return view('gender.index',compact('genders'));
+        return view('admin.genders.index',compact('genders'));
     }
 
     
     public function create()
     {
-        return view('gender.create');
+        return view('admin.genders.create');
     }
 
     
@@ -30,7 +30,9 @@ class GendersController extends Controller
         $gender->name = $request->genero;
         $gender->save();
         
-        return Redirect::to('gender')->with('alta','ok')->with('notice', 'Género agregado correctamente.');
+        return Redirect::to('admin/genders')
+        ->with('alta','ok')
+        ->with('notice', 'Género agregado correctamente.');
     }
     
     public function show(Genders $genders)
@@ -40,7 +42,7 @@ class GendersController extends Controller
     
     public function edit(Genders $gender)
     {
-        return view('gender.edit', compact('gender'));
+        return view('admin.genders.edit', compact('gender'));
     }
     
     public function update(Request $request, Genders $gender)
@@ -48,7 +50,9 @@ class GendersController extends Controller
         $gender->name = $request->genero;
         $gender->save();
 
-        return Redirect::to('gender')->with('edited','ok')->with('notice', 'Género actualizado correctamente.');
+        return Redirect::to('admin/genders')
+        ->with('edited','ok')
+        ->with('notice', 'Género actualizado correctamente.');
     
     }
     
@@ -56,7 +60,9 @@ class GendersController extends Controller
     {
         $gender->delete();
 
-        return Redirect::to('gender')->with('eliminar','ok')->with('notice', 'Género eliminado correctamente.');
+        return Redirect::to('admin/genders')
+        ->with('eliminar','ok')
+        ->with('notice', 'Género eliminado correctamente.');
     
     }
 }

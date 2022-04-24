@@ -26,17 +26,22 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('/civilstatus', 'App\Http\Controllers\CivilStatusController');
-    Route::resource('/bank', 'App\Http\Controllers\BankController');
-    Route::resource('/gender', 'App\Http\Controllers\GendersController');
-    Route::resource('/blood', 'App\Http\Controllers\BloodController');
-    Route::resource('/acctype', 'App\Http\Controllers\BankAccountTypeController');
+    Route::resource('admin/civilstatuses', 'App\Http\Controllers\CivilStatusController');
+    Route::resource('admin/banks', 'App\Http\Controllers\BankController');
+    Route::resource('admin/genders', 'App\Http\Controllers\GendersController');
+    Route::resource('admin/bloods', 'App\Http\Controllers\BloodController');
+    Route::resource('admin/acctypes', 'App\Http\Controllers\BankAccountTypeController');
+    Route::resource('admin/companies', 'App\Http\Controllers\CompanyController');
+    Route::resource('admin/departments', 'App\Http\Controllers\DepartmentController');
+    Route::resource('admin/municipalities', 'App\Http\Controllers\MunicipalityController');
+    Route::resource('admin/projecttypes', 'App\Http\Controllers\ProjectTypeController');
+    Route::resource('admin/projects', 'App\Http\Controllers\ProjectController');
 
 
 
 });
 
-route::get('/projects', function()
+route::get('/api/projects', function()
 {
     $p = App\Models\KinType::find(1);
     return $p->kins;

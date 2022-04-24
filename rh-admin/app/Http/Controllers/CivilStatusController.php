@@ -17,14 +17,14 @@ class CivilStatusController extends Controller
         $civilstatuses = CivilStatus::all();
         // $civilstatuses = CivilStatus::orderBy('id','desc')->paginate(5);
 
-        return view('civilstatus.index', compact('civilstatuses'));
+        return view('admin.civilstatuses.index', compact('civilstatuses'));
     }
 
 
     public function create()
     {
         //
-        return view('civilstatus.create');
+        return view('admin.civilstatuses.create');
     }
 
 
@@ -36,8 +36,9 @@ class CivilStatusController extends Controller
         $civilstatus->comment = $request->comentario;
         $civilstatus->save();
 
-        return Redirect::to('civilstatus')->with('alta','ok')->with('notice', 'Estado Civil agregado correctamente.');
-        // return Redirect::to('civilstatus')->with('alta','ok')->with('notice', 'Estado Civil agregado correctamente.');
+        return Redirect::to('admin/civilstatuses')
+        ->with('alta','ok')
+        ->with('notice', 'Estado Civil agregado correctamente.');
     }
 
 
@@ -48,7 +49,7 @@ class CivilStatusController extends Controller
 
     public function edit(CivilStatus $civilstatus)
     {
-        return view('civilstatus.edit', compact('civilstatus'));
+        return view('admin.civilstatuses.edit', compact('civilstatus'));
     }
 
 
@@ -59,7 +60,9 @@ class CivilStatusController extends Controller
         $civilstatus->comment = $request->comentario;
         $civilstatus->save();
 
-        return Redirect::to('civilstatus')->with('edited','ok')->with('notice', 'Estado Civil actualizado correctamente.');
+        return Redirect::to('admin/civilstatuses')
+        ->with('edited','ok')
+        ->with('notice', 'Estado Civil actualizado correctamente.');
     }
 
 
@@ -68,6 +71,8 @@ class CivilStatusController extends Controller
         $civilstatus->delete();
 
         // return Redirect::to('civilstatus')->with('notice', 'Estado Civil eliminado correctamente.');
-        return Redirect::to('civilstatus')->with('eliminar','ok')->with('notice', 'Estado Civil eliminado correctamente.');
+        return Redirect::to('admin/civilstatuses')
+        ->with('eliminar','ok')
+        ->with('notice', 'Estado Civil eliminado correctamente.');
     }
 }

@@ -12,18 +12,18 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Agregar Tipo de Cuenta</h4>
+                            <h4>Agregar Género</h4>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{route('acctype.store')}}" method="POST" class="d-inline" id="form-alta">
+                    <form action="{{route('genders.store')}}" method="POST" class="d-inline" id="form-alta">
                         @csrf
                         <div class="form-group row mt-4">
-                            <label for="cuenta" class="col-sm-2 col-form-label">Tipo de Cuenta Bancaria:</label>
+                            <label for="genero" class="col-sm-2 col-form-label">Género:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="cuenta" id="cuenta" autofocus tabindex="1"></input>
+                                <input type="text" class="form-control" name="genero" id="genero" autofocus tabindex="1"></input>
                             </div>
                         </div>
 
@@ -31,7 +31,7 @@
                             <div class="form-group row mt-4">
                                 <div class="col-sm-6"></div>
                                 <div class="col-sm-6">
-                                    <a href="{{ route('acctype.index') }}" class="btn btn-secondary" tabindex="4">Cancelar</a>
+                                    <a href="{{ route('genders.index') }}" class="btn btn-secondary" tabindex="4">Cancelar</a>
                                     <button type="submit" class="btn btn-primary" tabindex="3">Agregar</button>
                                 </div>
                             </div>
