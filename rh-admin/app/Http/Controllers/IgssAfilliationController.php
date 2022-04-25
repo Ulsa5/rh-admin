@@ -2,84 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\IgssAfilliation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class IgssAfilliationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
-    }
+        $igssafilliations = IgssAfilliation::all()->sortBy('company_id');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        return view('admin.igssafilliations.index', compact('igssafilliations'));
+    }
+    
     public function create()
     {
-        //
+        $companies = Company::all();
+        return view('admin.igssafilliations.create', compact('companies'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $igssafilliation = new IgssAfilliation();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\IgssAfilliation  $igssAfilliation
-     * @return \Illuminate\Http\Response
-     */
+        $igssafilliation->number = $request->number;
+        $igssafilliation->filial = $request->filial;
+        $igssafilliation->company_id = $request->company;
+        $igssafilliation->save();
+
+        return Redirect::to('admin/igssafilliations')
+        ->with('alta','ok')
+        ->with('notice', 'Información de la filial agregada correctamente.');
+    }
+    
     public function show(IgssAfilliation $igssAfilliation)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\IgssAfilliation  $igssAfilliation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(IgssAfilliation $igssAfilliation)
+    
+    public function edit(IgssAfilliation $igssafilliation)
     {
-        //
+        $companies = Company::all();
+        return view('admin.igssafilliations.edit', compact('igssafilliation','companies'));
+    }
+    
+    public function update(Request $request, IgssAfilliation $igssafilliation)
+    {
+        $igssafilliation->number = $request->number;
+        $igssafilliation->filial = $request->filial;
+        $igssafilliation->company_id = $request->company;
+        $igssafilliation->save();
+
+        return Redirect::to('admin/igssafilliations')
+        ->with('edited','ok')
+        ->with('notice', 'Información de la filial actualizada correctamente.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\IgssAfilliation  $igssAfilliation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, IgssAfilliation $igssAfilliation)
+    public function destroy(IgssAfilliation $igssafilliation)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\IgssAfilliation  $igssAfilliation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(IgssAfilliation $igssAfilliation)
-    {
-        //
+        $igssafilliation->delete();
+        
+        return Redirect::to('admin/igssafilliations')
+        ->with('eliminar','ok')
+        ->with('notice', 'Información de la filial eliminada correctamente.');
     }
 }

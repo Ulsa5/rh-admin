@@ -2,84 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Insurance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class InsuranceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
-    }
+        $insurances = Insurance::all()->sortBy('company_id');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        return view('admin.insurances.index', compact('insurances'));
+    }
+    
     public function create()
     {
-        //
+        $companies = Company::all();
+        return view('admin.insurances.create', compact('companies'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $insurance = new Insurance();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Insurance  $insurance
-     * @return \Illuminate\Http\Response
-     */
+        $insurance->name = $request->name;
+        $insurance->company_id = $request->company;
+        $insurance->save();
+
+        return Redirect::to('admin/insurances')
+        ->with('alta','ok')
+        ->with('notice', 'Información del seguro agregada correctamente.');
+    }
+    
     public function show(Insurance $insurance)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Insurance  $insurance
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Insurance $insurance)
     {
-        //
+        $companies = Company::all();
+        return view('admin.insurances.edit', compact('insurance','companies'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Insurance  $insurance
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Insurance $insurance)
     {
-        //
-    }
+        $insurance->name = $request->name;
+        $insurance->company_id = $request->company;
+        $insurance->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Insurance  $insurance
-     * @return \Illuminate\Http\Response
-     */
+        return Redirect::to('admin/insurances')
+        ->with('edited','ok')
+        ->with('notice', 'Información del seguro actualizada correctamente.');
+    }
+    
     public function destroy(Insurance $insurance)
     {
-        //
+        $insurance->delete();
+        
+        return Redirect::to('admin/insurances')
+        ->with('eliminar','ok')
+        ->with('notice', 'Información del seguro eliminada correctamente.');
     }
 }
