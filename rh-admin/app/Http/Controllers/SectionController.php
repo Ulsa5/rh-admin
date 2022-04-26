@@ -4,82 +4,60 @@ namespace App\Http\Controllers;
 
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class SectionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $sections = Section::all();
+        return view('admin.sections.index', compact('sections'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('admin.sections.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        $section = new Section();
+        $section->name = $request->seccion;
+        $section->save();
+        
+        return Redirect::to('admin/sections')
+        ->with('alta','ok')
+        ->with('notice', 'Departamento agregado correctamente.');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Section  $section
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Section $section)
     {
-        //
+        
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Section  $section
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Section $section)
     {
-        //
+        return view('admin.sections.edit', compact('section'));
+        
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Section  $section
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Section $section)
     {
-        //
-    }
+        $section->name = $request->seccion;
+        $section->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Section  $section
-     * @return \Illuminate\Http\Response
-     */
+        return Redirect::to('admin/sections')
+        ->with('edited','ok')
+        ->with('notice', 'Información del departamento actualizado correctamente.');
+    }
+    
     public function destroy(Section $section)
     {
-        //
+        $section->delete();
+        
+        return Redirect::to('admin/sections')
+        ->with('eliminar','ok')
+        ->with('notice', 'Información del departamento eliminada correctamente.');
     }
 }

@@ -27,22 +27,22 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Listado de Tipos de Cuenta Bancaria</h4>
+                            <h4>Listado de Departamentos Laborales</h4>
                             <br>
-                            <a href="{{ route('acctypes.create') }}" class="btn btn-primary mt-2 mb-2">
+                            <a href="{{ route('sections.create') }}" class="btn btn-primary mt-2 mb-2">
                                 <i class="fa fa-plus"></i>
-                                Agregar tipo de cuenta
+                                Agregar Departamento
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body mt-3">
-                    @if($bankAccountTypes->count())
+                    @if($sections->count())
                     <table id="tabla" class="stripe hover order-colum row-border text-center">
                         <thead class="bg-primary">
                             <tr class="text-white">
                                 <th>No.</th>
-                                <th>Nombre</th>
+                                <th>Departamento</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -51,15 +51,15 @@
                                 $i = 0;
                             @endphp
 
-                            @foreach($bankAccountTypes as $bankAccountType)
+                            @foreach($sections as $section)
                             <tr>
                                 <td>{{ $i+=1 }}</td>
-                                <td>{{ $bankAccountType->account_type }}</td>
+                                <td>{{ $section->name }}</td>
                                 <td>
-                                    <a href="{{ route('acctypes.edit', $bankAccountType) }}" class="btn btn-success">
+                                    <a href="{{ route('sections.edit', $section) }}" class="btn btn-success">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <form action="{{ route('acctypes.destroy', $bankAccountType) }}" method="POST" class="d-inline formulario-eliminar">
+                                    <form action="{{ route('sections.destroy', $section) }}" method="POST" class="d-inline formulario-eliminar">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">
