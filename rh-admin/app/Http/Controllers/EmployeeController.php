@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Job;
+use App\Models\Municipality;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $employees = Employee::all();
+        $projects = Project::all();
+        $jobs = Job::all();
+        $municipalities = Municipality::all();
+        $departments = Department::all();
+        return view('admin.employees.index', compact('employees','projects','jobs','municipalities','departments'));
     }
 
     /**
@@ -46,7 +51,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        dd($employee);
     }
 
     /**

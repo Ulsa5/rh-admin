@@ -4,82 +4,61 @@ namespace App\Http\Controllers;
 
 use App\Models\KinType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class KinTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
-    }
+        $kintypes = KinType::all()->sortBy('name');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        return view('admin.kintypes.index', compact('kintypes'));
+    }
+    
     public function create()
     {
-        //
+        return view('admin.kintypes.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $kintype = new KinType();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\KinType  $kinType
-     * @return \Illuminate\Http\Response
-     */
+        $kintype->name = $request->name;
+        $kintype->save();
+
+        return Redirect::to('admin/kintypes')
+        ->with('alta','ok')
+        ->with('notice', 'Información del parentesco agregada correctamente.');
+    }
+    
     public function show(KinType $kinType)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\KinType  $kinType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(KinType $kinType)
+    
+    public function edit(KinType $kintype)
     {
-        //
+        return view('admin.kintypes.edit', compact('kintype'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\KinType  $kinType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, KinType $kinType)
+    
+    public function update(Request $request, KinType $kintype)
     {
-        //
+        $kintype->name = $request->name;
+        $kintype->save();
+
+        return Redirect::to('admin/kintypes')
+        ->with('edited','ok')
+        ->with('notice', ('Información del parentesco actualizada correctamente.'));
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\KinType  $kinType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(KinType $kinType)
+    
+    public function destroy(KinType $kintype)
     {
-        //
+        $kintype->delete();
+        
+        return Redirect::to('admin/kintypes')
+        ->with('eliminar','ok')
+        ->with('notice', 'Información del parentesco eliminada correctamente.');
     }
 }

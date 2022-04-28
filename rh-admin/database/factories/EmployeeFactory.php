@@ -19,6 +19,7 @@ class EmployeeFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'dpi' => $this->faker->numberBetween(1111111111111,9999999999999),
+            'municipality_dpi' => $this->faker->numberBetween(1,5),
             'admission_date' => $this->faker->date(),
             'carnet' => $this->faker->randomNumber(5,true),
             'carnet_expiration' => $this->faker->date(),
@@ -28,6 +29,7 @@ class EmployeeFactory extends Factory
             'educational_level' => $this->faker->sentence(),
             'email' => $this->faker->email(),
             'birthday' => $this->faker->date(),
+            'municipality_birthday' => $this->faker->numberBetween(1,5),
             'children' => $this->faker->randomDigit(),
             'address' => $this->faker->sentence(),
             'bank_account_number' => $this->faker->numberBetween(11111111,99999999),

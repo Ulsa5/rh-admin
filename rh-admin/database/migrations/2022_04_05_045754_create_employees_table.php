@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            
+            $table->date('admission_date');
             $table->string('name',100);
             $table->string('dpi',13);
-            $table->date('admission_date');
+            $table->string('municipality_dpi',100);
             $table->string('carnet',15);
             $table->date('carnet_expiration');
             $table->string('telephone',10);
@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('educational_level',100);
             $table->string('email',100);
             $table->date('birthday');
+            $table->string('municipality_birthday',100);
             $table->string('children',2);
             $table->string('address',250);
             $table->string('bank_account_number',50);

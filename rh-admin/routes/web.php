@@ -38,11 +38,14 @@ Route::middleware([
     Route::resource('admin/projects', 'App\Http\Controllers\ProjectController');
     Route::resource('admin/insurances', 'App\Http\Controllers\InsuranceController');
     Route::resource('admin/igssafilliations', 'App\Http\Controllers\IgssAfilliationController');
-
     Route::resource('admin/sections', 'App\Http\Controllers\SectionController');
-    
     Route::resource('admin/jobs', 'App\Http\Controllers\JobController');
     Route::resource('admin/kintypes', 'App\Http\Controllers\KinTypeController');
+
+    Route::resource('admin/employees', 'App\Http\Controllers\EmployeeController');
+
+
+
 
 
 
