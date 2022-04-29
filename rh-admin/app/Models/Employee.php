@@ -16,7 +16,7 @@ class Employee extends Model
 
     public function gender()
     {
-        return $this->belongsTo('App\Models\Gender');
+        return $this->belongsTo('App\Models\Genders');
     }
 
     public function civilStatus()

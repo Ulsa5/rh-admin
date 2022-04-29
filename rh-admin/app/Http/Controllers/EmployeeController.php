@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Genders;
 use App\Models\Job;
 use App\Models\Municipality;
 use App\Models\Project;
@@ -19,7 +20,9 @@ class EmployeeController extends Controller
         $jobs = Job::all();
         $municipalities = Municipality::all();
         $departments = Department::all();
-        return view('admin.employees.index', compact('employees','projects','jobs','municipalities','departments'));
+        $genders = Genders::all();
+        // dd($genders);
+        return view('admin.employees.index', compact('employees','projects','jobs','municipalities','departments','genders'));
     }
 
     /**
@@ -51,7 +54,8 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        dd($employee);
+        return view('admin.employees.show', compact('employee'));
+        // dd($employee);
     }
 
     /**
