@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('result',150);
             $table->string('comment',250);
+            $table->string('poligrapher',150);
 
             $table->unsignedBigInteger('employee_id');
 

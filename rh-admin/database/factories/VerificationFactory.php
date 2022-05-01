@@ -20,6 +20,7 @@ class VerificationFactory extends Factory
             'date' => $this->faker->date(),
             'result' => $this->faker->word(10),
             'comment' => $this->faker->word(10),
+            'verificator' => $this->faker->word(10),
             'employee_id' => $this->faker->numberBetween(1,10)
         ];
     }

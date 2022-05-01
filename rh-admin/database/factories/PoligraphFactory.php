@@ -20,6 +20,7 @@ class PoligraphFactory extends Factory
             'date' => $this->faker->date(),
             'result' => $this->faker->sentence(),
             'comment' => $this->faker->sentence(),
+            'verificator' => $this->faker->word(10),
             'employee_id' => $this->faker->numberBetween(1,10)
         ];
     }

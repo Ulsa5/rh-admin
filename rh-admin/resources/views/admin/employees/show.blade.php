@@ -32,8 +32,11 @@
                                 <img src="{{ asset('img/perfil.jpg') }}"  height="100%" width="10%"></img>
                             </div>
                             <h2>{{ $employee->name}}</h2>
-                            <h4>Ficha del Empleado</h4>
+                            <h5>Ficha del Empleado</h5>
                         </div>
+                    </div>
+                    <div class="row mt-4">
+                        <a href="{{ route('employees.index') }}" class="btn btn-primary">Listado de Empleados</a>
                     </div>
                 </div>
 
@@ -250,109 +253,446 @@
                         {{-- Datos familiares --}}
                         <div class="tab-pane fade" id="nav-familiares" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <h3>Datos Familiares</h3>
+                            <br>
+
+                            <div class="mx-auto">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name">Fecha de Alta</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ date("d/m/Y", strtotime($employee->admission_date)) }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name">Nombre completo</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ $employee->name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">DPI</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->dpi }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Lugar de Nacimiento</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->municipality->name }}, {{ $employee->municipality->department->name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Número de Carnet</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->carnet }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Fecha de Vencimiento del Carnet</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ date("d/m/Y", strtotime($employee->carnet_expiration)) }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Teléfono</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->telephone }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">NIT</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->nit }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">IRTRA</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->irtra }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Nivel de Estudios</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->educational_level }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Correo Electrónico</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->email }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Dirección</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->address }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Estado Civil</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->civilStatus->name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Fecha de Nacimiento</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ date("d/m/Y", strtotime($employee->birthday)) }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Lugar de Nacimiento</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->municipality->name }}, {{ $employee->municipality->department->name }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Número de Cuenta Bancaria</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->bank_account_number }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Tipo de Cuenta Bancaria</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->bankAccountType->account_type }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Banco</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->bank->name }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
                             
                         </div>
 
                         {{-- Documentos y Afiliaciones --}}
                         <div class="tab-pane fade" id="nav-documentos" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <h3>Documentos</h3>
+                            <br>
+
+                            <div class="mx-auto">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name">Fecha de Alta</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ date("d/m/Y", strtotime($employee->admission_date)) }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name">Nombre completo</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ $employee->name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">DPI</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->dpi }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Lugar de Nacimiento</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->municipality->name }}, {{ $employee->municipality->department->name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Número de Carnet</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->carnet }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Fecha de Vencimiento del Carnet</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ date("d/m/Y", strtotime($employee->carnet_expiration)) }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Teléfono</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->telephone }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">NIT</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->nit }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">IRTRA</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->irtra }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Nivel de Estudios</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->educational_level }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Correo Electrónico</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->email }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Dirección</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->address }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Estado Civil</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->civilStatus->name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Fecha de Nacimiento</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ date("d/m/Y", strtotime($employee->birthday)) }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Lugar de Nacimiento</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->municipality->name }}, {{ $employee->municipality->department->name }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">Número de Cuenta Bancaria</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->bank_account_number }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Tipo de Cuenta Bancaria</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->bankAccountType->account_type }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="birth_date">Banco</label>
+                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="{{ $employee->bank->name }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
                             
                         </div>
 
                         {{-- Comentarios, etc. --}}
                         <div class="tab-pane fade" id="nav-otros" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <h3>Otros</h3>
+                            <br>
+
+                            <div class="mx-auto">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name">Fecha de Alta</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ date("d/m/Y", strtotime($employee->admission_date)) }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name">Nombre completo</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ $employee->name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dni">DPI</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->dpi }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="row mt-4">
+                                    {{-- Mostrar Comentarios --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <a href="javascript:mostrarOcultarTablas('tablaComentarios')" class="btn btn-primary mb-3">
+                                                <i class="fa-solid fa-file-circle-check"></i>
+                                                Historial de Comentarios
+                                            </a>
+                                            <div id="tablaComentarios" style="display: none">
+                                            <table class="table table-active text-center" id="tabla">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Comentario</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($comment->count())
+                                                    @for ($i=0;$i<$comment->count();$i++)
+                                                        <tr>
+                                                            <td>{{ date("d/m/Y", strtotime($comment[$i]->date)) }}</td>
+                                                            <td>{{ $comment[$i]->comment }}</td>
+                                                        </tr>
+                                                    @endfor
+                                                @else
+                                                <tr>
+                                                    <td colspan="4">No hay comentarios registrados</td>
+                                                </tr>
+                                            @endif
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        </div>
+                                    </div>
+
+                                    {{-- Mostrar Poligrafias --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <a href="javascript:mostrarOcultarTablas('tablaPoligrafias')" class="btn btn-primary mb-3">
+                                                <i class="fa-solid fa-file-circle-check"></i>
+                                                Historial de Polígrafos
+                                            </a>
+                                            <div id="tablaPoligrafias" style="display: none">
+                                            <table class="table table-active text-center" id="tabla">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Resultado</th>
+                                                        <th>Comentario</th>
+                                                        <th>Poligrafista</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($poligraph->count())
+                                                    @for ($i=0;$i<$poligraph->count();$i++)
+                                                    <tr>
+                                                        <td>{{ date("d/m/Y", strtotime($poligraph[$i]->date)) }}</td>
+                                                        <td>{{ $poligraph[$i]->result }}</td>
+                                                        <td>{{ $poligraph[$i]->comment }}</td>
+                                                        <td>{{ $poligraph[$i]->poligrapher }}</td>
+                                                    </tr>
+                                                @endfor
+                                                @else
+                                                    <tr>
+                                                        <td colspan="4">No hay polígrafos registrados</td>
+                                                    </tr>
+                                                @endif
+                                                    
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                    {{-- Mostrar Verificaciones --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <a href="javascript:mostrarOcultarTablas('tablaVerificaciones')" class="btn btn-primary mb-3">
+                                                <i class="fa-solid fa-file-circle-check"></i>
+                                                Historial de Verificaciones
+                                            </a>
+                                            <div id="tablaVerificaciones" style="display: none">
+                                            <table class="table table-active text-center" id="tabla">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Resultado</th>
+                                                        <th>Comentario</th>
+                                                        <th>Verificador</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($verification->count())
+                                                    @for ($i=0;$i<$verification->count();$i++)
+                                                        <tr>
+                                                            <td>{{ date("d/m/Y", strtotime($verification[$i]->date)) }}</td>
+                                                            <td>{{ $verification[$i]->result }}</td>
+                                                            <td>{{ $verification[$i]->comment }}</td>
+                                                            <td>{{ $verification[$i]->verificator }}</td>
+                                                        </tr>
+                                                    @endfor
+                                                    @else
+                                                    <tr>
+                                                        <td colspan="4">No hay verificaciones registradas</td>
+                                                    </tr>
+                                                    @endif
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
                             
                         </div>
 
                       </div>
-                      
 
-
-
-
-
-
-
-
-
-
-                    {{-- @if($employee->count())
-                    <table id="tabla" class="stripe hover order-colum row-border text-center nowrap">
-                        <thead class="bg-primary">
-                            <tr class="text-white">
-                                <th>No.</th>
-                                <th>Foto</th>
-                                <th>Fecha de Alta</th>
-                                <th>Nombre</th>
-                                <th>Empresa</th>
-                                <th>DPI</th>
-                                <th>Extendido en</th>
-                                <th>Fecha Nacimiento</th>
-                                <th>Lugar Nacimiento</th>
-                                <th>Puesto</th>
-                                <th>Proyecto</th>
-                                <th>Teléfono</th>
-                                <th>Dirección</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $i = 0;
-                            @endphp
-
-                            <tr>
-                                <td>
-                                    {{ $i+=1 }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('employees.show', $employee) }}">
-                                        <img src="{{ asset('img/perfil.jpg') }}"</img>
-                                    </a>
-                                </td>
-                                <td>
-                                    {{ date("d-m-Y", strtotime($employee->admission_date)) }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('employees.show', $employee) }}">
-                                        {{ $employee->name }}
-                                    </a>
-                                </td>
-                                <td>{{ $employee->company->name }}</td>
-                                <td>{{ $employee->dpi }}</td>
-                                <td>{{ $employee->municipality->name.", ".$employee->municipality->department->name }}</td>
-                                <td>{{ date("d-m-Y", strtotime($employee->birthday)) }}</td>
-                                <td>{{ $employee->municipality->name.", ".$employee->municipality->department->name }}</td>
-                                <td>{{ $employee->job->name }}</td>
-                                <td>{{ $employee->project->name }}</td>
-                                <td>{{ $employee->telephone }}</td>
-                                <td>{{ $employee->address }}</td>
-                                <td>
-                                    <a href="{{ route('employees.edit', $employee) }}" class="btn btn-success">
-                                        <i class="fa-solid fa-user-pen" title="Editar"></i>
-                                    </a>
-                                    <a href="{{ route('employees.show', $employee) }}" class="btn btn-warning">
-                                        <i class="fa fa-user-check" title="Ver ficha"></i>
-                                    </a>
-                                    <form action="{{ route('employees.destroy', $employee) }}" method="POST" class="d-inline formulario-eliminar">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="fa fa-user-xmark" title="Dar Baja"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    {{ $civilstatuses->links() }} --}}
-
-                    {{-- @else
-                    <p>No se encontró ningún registro</p>
-                    @endif --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section('scripts')
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <script>
+        function mostrarOcultarTablas(id){
+            mostrado=0;
+            elem = document.getElementById(id);
+            if(elem.style.display=="block")mostrado=1;
+            elem.style.display="none";
+            if(mostrado!=1)elem.style.display="block";
+        }
+    </script>
+
+@endsection
