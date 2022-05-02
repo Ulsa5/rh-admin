@@ -21,7 +21,8 @@ class VerificationFactory extends Factory
             'result' => $this->faker->word(10),
             'comment' => $this->faker->word(10),
             'verificator' => $this->faker->word(10),
-            'employee_id' => $this->faker->numberBetween(1,10)
+            'employee_id' => $this->faker->numberBetween(1,10),
+            'verification_type_id'=>$this->faker->numberBetween(1,5)
         ];
     }
 }

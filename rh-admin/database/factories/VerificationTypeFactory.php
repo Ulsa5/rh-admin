@@ -18,7 +18,6 @@ class VerificationTypeFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'verification_id' => $this->faker->numberBetween(1,10)
         ];
     }
 }

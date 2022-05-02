@@ -72,6 +72,9 @@ class DatabaseSeeder extends Seeder
         Section::factory(20)->create();
         VaccineDosis::factory(15)->create();
         Vaccine::factory(5)->create();
+        
+        PoligraphType::factory(5)->create();
+        VerificationType::factory(5)->create();
 
 
         //Necesita el company_id
@@ -112,13 +115,7 @@ class DatabaseSeeder extends Seeder
         //Necesita el kin_type_id
         Kin::factory(10)->create();
 
-        //Necesita el poligraph_id
-        PoligraphType::factory(5)->create();
-
         
-
-        //Necesita el verification_id
-        VerificationType::factory(5)->create();
 
         //Muchos a muchos
         //employee_kin, employee_vaccine, permission_role, role_user, vaccine_vaccine_doses

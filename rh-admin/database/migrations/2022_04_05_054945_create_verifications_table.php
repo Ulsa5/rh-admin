@@ -26,6 +26,13 @@ return new class extends Migration
                     ->references('id')->on('employees')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+
+            $table->unsignedBigInteger('verification_type_id');
+
+            $table->foreign('verification_type_id')
+                    ->references('id')->on('verification_types')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
                     
             $table->timestamps();
         });

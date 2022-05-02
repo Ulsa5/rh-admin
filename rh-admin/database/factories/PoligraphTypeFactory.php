@@ -18,7 +18,6 @@ class PoligraphTypeFactory extends Factory
     {
         return [
             'name'=>$this->faker->name(),
-            'poligraph_id'=>$this->faker->numberBetween(1,10)
         ];
     }
 }

@@ -14,8 +14,8 @@ class Poligraph extends Model
         return $this->belongsTo('App\Models\Employee');
     }
 
-    public function poligraphTypes()
+    public function poligraphType()
     {
-        return $this->hasMany('App\Models\PoligraphType');
+        return $this->belongsTo('App\Models\PoligraphType');
     }
 }

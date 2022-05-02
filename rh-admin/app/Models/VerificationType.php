@@ -9,8 +9,8 @@ class VerificationType extends Model
 {
     use HasFactory;
 
-    public function verification()
+    public function verifications()
     {
-        return $this->belongsTo('App\Models\Verification');
+        return $this->hasMany('App\Models\Verification');
     }
 }

@@ -14,8 +14,8 @@ class Verification extends Model
         return $this->belongsTo('App\Models\Employee');
     }
 
-    public function verificationTypes()
+    public function verificationType()
     {
-        return $this->hasMany('App\Models\VerificationType');
+        return $this->belongsTo('App\Models\VerificationType');
     }
 }

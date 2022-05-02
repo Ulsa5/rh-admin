@@ -27,6 +27,13 @@ return new class extends Migration
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
+            $table->unsignedBigInteger('poligraph_type_id');
+
+            $table->foreign('poligraph_type_id')
+                    ->references('id')->on('poligraph_types')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

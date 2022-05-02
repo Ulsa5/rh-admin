@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Verification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class VerificationController extends Controller
 {
@@ -35,7 +36,20 @@ class VerificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $verification = new Verification();
+
+        $verification->date = $request->date;
+        $verification->result = $request->result;
+        $verification->comment = $request->comment;
+        $verification->verificator = $request->verificator;
+        $verification->employee_id = $request->employee_id;
+        $verification->verification_type_id = $request->verificationtype;
+        // dd($verification);
+        $verification->save();
+
+        return Redirect::to('admin/employees/'.$request->employee_id.'/verifications')
+        ->with('alta','ok')
+        ->with('notice', 'Información de la Verificación de datos agregada correctamente.');
     }
 
     /**

@@ -9,8 +9,8 @@ class PoligraphType extends Model
 {
     use HasFactory;
 
-    public function poligraph()
+    public function poligraphs()
     {
-        return $this->belongsTo('App\Models\Poligraph');
+        return $this->hasMany('App\Models\Poligraph');
     }
 }

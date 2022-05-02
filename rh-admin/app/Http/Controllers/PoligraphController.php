@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poligraph;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PoligraphController extends Controller
 {
@@ -26,16 +27,23 @@ class PoligraphController extends Controller
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        $poligraph = new Poligraph();
+
+        $poligraph->date = $request->date;
+        $poligraph->result = $request->result;
+        $poligraph->comment = $request->comment;
+        $poligraph->poligrapher = $request->poligrapher;
+        $poligraph->employee_id = $request->employee_id;
+        $poligraph->poligraph_type_id = $request->poligraphtype;
+        // dd($poligraph);
+        $poligraph->save();
+
+        return Redirect::to('admin/employees/'.$request->employee_id)
+        ->with('alta','ok')
+        ->with('notice', 'Resultado poligráfico agregado correctamente.');
     }
 
     /**

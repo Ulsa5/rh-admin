@@ -534,254 +534,142 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="registros" class="mb-3">Registros de</label>
-                                            <select class="form-control mb-3" name="registros" id="registros">
-                                                <option value="">Seleccione</option>
-                                                <option value="comentarios">Comentarios</option>
-                                                <option value="poligrafos">Polígrafos</option>
-                                                <option value="verificaciones">Verificaciones</option>
-                                                <option value="vacunas">Vacunas</option>
-                                            </select>
+                                            <label for="name">Fecha de Alta</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ date("d/m/Y", strtotime($employee->admission_date)) }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group">&nbsp;</div>
+                                        <div class="form-group">
+                                            <label for="name">Nombre completo</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ $employee->name }}" disabled>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group">&nbsp;</div>
+                                        <div class="form-group">
+                                            <label for="dni">DPI</label>
+                                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $employee->dpi }}" disabled>
+                                        </div>
                                     </div>
                                 </div>
-
-
-                                {{-- Tabla de Comentarios --}}
-                                <div id="tablacomentarios" style="display: none">
-                                    {{-- <a href="javascript:alert('Módulo en Proceso');" class="btn btn-primary mb-2">Agregar Comentario</a> --}}
                                     
-                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddcomments" data-whatever="">Agregar Comentario</button>
-                                    <table class="table table-striped text-center" id="tabla">
-                                        {{-- <table class="table table-active text-center" id="tabla"> --}}
-                                        <thead class="table-primary">
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Comentario</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-striped">
-                                            @if($comment->count())
-                                            @for ($i=0;$i<$comment->count();$i++)
-                                                <tr>
-                                                    <td>{{ date("d/m/Y", strtotime($comment[$i]->date)) }}</td>
-                                                    <td>{{ $comment[$i]->comment }}</td>
-                                                </tr>
-                                            @endfor
-                                        @else
-                                        <tr>
-                                            <td colspan="4">No hay comentarios registrados</td>
-                                        </tr>
-                                    @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                {{-- Modal Agregar Comentarios --}}
-                                <div class="modal fade" id="modalAddComments" tabindex="-1" role="dialog" aria-labelledby="modalAddcommentsLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="modalAddcommentsLabel">Agregar Comentario</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form action="{{route('comments.store')}}" method="POST">
-                                              @csrf
-                                            <div class="form-group">
-                                              <label for="date" class="col-form-label">Fecha:</label>
-                                              <input type="date" class="form-control" id="date" name="date">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="comment" class="col-form-label">Comentario:</label>
-                                              <textarea class="form-control" id="comment" name="comment"></textarea>
-                                            </div>
-                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
-                                          {{-- </form> --}}
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                          <button type="submit" class="btn btn-primary">Agregar</button>
-                                        </div>
-                                          </form>
-                                      </div>
-                                    </div>
-                                </div>
-                                
-                                  {{-- Tabla de Polígrafos --}}
-                                <div id="tablapoligrafos" style="display: none">
-                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddPoligraphs" data-whatever="">Agregar Polígrafo</button>
-                                    <table class="table table-active text-center" id="tabla">
-                                        <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Tipo de Prueba</th>
-                                                <th>Resultado</th>
-                                                <th>Comentario</th>
-                                                <th>Poligrafista</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if($poligraph->count())
-                                            @for ($i=0;$i<$poligraph->count();$i++)
-                                            <tr>
-                                                <td>{{ date("d/m/Y", strtotime($poligraph[$i]->date)) }}</td>
-                                                <td>{{ $poligraph[$i]->poligraphType->name }}</td>
-                                                <td>{{ $poligraph[$i]->result }}</td>
-                                                <td>{{ $poligraph[$i]->comment }}</td>
-                                                <td>{{ $poligraph[$i]->poligrapher }}</td>
-                                            </tr>
-                                        @endfor
-                                        @else
-                                            <tr>
-                                                <td colspan="4">No hay polígrafos registrados</td>
-                                            </tr>
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                {{-- Modal Agregar Polígrafos --}}
-                                <div class="modal fade" id="modalAddPoligraphs" tabindex="-1" role="dialog" aria-labelledby="modalAddPoligraphsLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="modalAddPoligraphsLabel">Agregar Polígrafo</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form action="{{route('poligraphs.store')}}" method="POST">
-                                              @csrf
-                                            <div class="form-group">
-                                              <label for="date" class="col-form-label">Fecha:</label>
-                                              <input type="date" class="form-control" id="date" name="date">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="poligraphtype" class="col-form-label">Tipo de Prueba:</label>
-                                                <select class="form-control" name="poligraphtype" id="poligraphtype">
-                                                    <option value="">Seleccione</option>
-                                                    @for($i = 0; $i<$poligraphtype->count(); $i++)
-                                                        <option value="{{ $poligraphtype[$i]->id }}">{{ $poligraphtype[$i]->name }}</option>
+                                <div class="row mt-4">
+                                    {{-- Mostrar Comentarios --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <a href="javascript:mostrarOcultarTablas('tablaComentarios')" class="btn btn-primary mb-3">
+                                                <i class="fa-solid fa-file-circle-check"></i>
+                                                Historial de Comentarios
+                                            </a>
+                                            <div id="tablaComentarios" style="display: none">
+                                            <table class="table table-active text-center" id="tabla">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Comentario</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($comment->count())
+                                                    @for ($i=0;$i<$comment->count();$i++)
+                                                        <tr>
+                                                            <td>{{ date("d/m/Y", strtotime($comment[$i]->date)) }}</td>
+                                                            <td>{{ $comment[$i]->comment }}</td>
+                                                        </tr>
                                                     @endfor
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="result" class="col-form-label">Resultado:</label>
-                                                <input type="text" class="form-control" id="result" name="result">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="comment" class="col-form-label">Comentario:</label>
-                                              <textarea class="form-control" id="comment" name="comment"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="poligrapher" class="col-form-label">Poligrafista:</label>
-                                                <input type="text" class="form-control" id="poligrapher" name="poligrapher">
-                                            </div>
-                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                          <button type="submit" class="btn btn-primary">Agregar</button>
-                                        </div>
-                                          </form>
-                                      </div>
-                                    </div>
-                                </div>
-
-                                {{-- Tabla de Verificaciones --}}
-                                <div id="tablaverificaciones" style="display: none">
-                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddVerifications" data-whatever="">Agregar Verificación</button>
-                                    <table class="table table-active text-center" id="tabla">
-                                        <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Tipo de Verificación</th>
-                                                <th>Resultado</th>
-                                                <th>Comentario</th>
-                                                <th>Verificador</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if($verification->count())
-                                            @for ($i=0;$i<$verification->count();$i++)
+                                                @else
                                                 <tr>
-                                                    <td>{{ date("d/m/Y", strtotime($verification[$i]->date)) }}</td>
-                                                    <td>{{ $verification[$i]->verificationType->name }}</td>
-                                                    <td>{{ $verification[$i]->result }}</td>
-                                                    <td>{{ $verification[$i]->comment }}</td>
-                                                    <td>{{ $verification[$i]->verificator }}</td>
+                                                    <td colspan="4">No hay comentarios registrados</td>
                                                 </tr>
-                                            @endfor
-                                            @else
-                                            <tr>
-                                                <td colspan="4">No hay verificaciones registradas</td>
-                                            </tr>
                                             @endif
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
-                                {{-- Modal Agregar Verificaciones --}}
-                                <div class="modal fade" id="modalAddVerifications" tabindex="-1" role="dialog" aria-labelledby="modalAddVerificationsLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="modalAddVerificationsLabel">Agregar Verificación</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="modal-body">
-                                          <form action="{{route('verifications.store')}}" method="POST">
-                                              @csrf
-                                            <div class="form-group">
-                                              <label for="date" class="col-form-label">Fecha:</label>
-                                              <input type="date" class="form-control" id="date" name="date">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="verificationtype" class="col-form-label">Tipo de verificación:</label>
-                                                <select class="form-control" name="verificationtype" id="verificationtype">
-                                                    <option value="">Seleccione</option>
-                                                    @for($i = 0; $i<$verificationtype->count(); $i++)
-                                                        <option value="{{ $verificationtype[$i]->id }}">{{ $verificationtype[$i]->name }}</option>
+
+                                        </div>
+                                    </div>
+
+                                    {{-- Mostrar Poligrafias --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <a href="javascript:mostrarOcultarTablas('tablaPoligrafias')" class="btn btn-primary mb-3">
+                                                <i class="fa-solid fa-file-circle-check"></i>
+                                                Historial de Polígrafos
+                                            </a>
+                                            <div id="tablaPoligrafias" style="display: none">
+                                            <table class="table table-active text-center" id="tabla">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Resultado</th>
+                                                        <th>Comentario</th>
+                                                        <th>Poligrafista</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($poligraph->count())
+                                                    @for ($i=0;$i<$poligraph->count();$i++)
+                                                    <tr>
+                                                        <td>{{ date("d/m/Y", strtotime($poligraph[$i]->date)) }}</td>
+                                                        <td>{{ $poligraph[$i]->result }}</td>
+                                                        <td>{{ $poligraph[$i]->comment }}</td>
+                                                        <td>{{ $poligraph[$i]->poligrapher }}</td>
+                                                    </tr>
+                                                @endfor
+                                                @else
+                                                    <tr>
+                                                        <td colspan="4">No hay polígrafos registrados</td>
+                                                    </tr>
+                                                @endif
+                                                    
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                    {{-- Mostrar Verificaciones --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <a href="javascript:mostrarOcultarTablas('tablaVerificaciones')" class="btn btn-primary mb-3">
+                                                <i class="fa-solid fa-file-circle-check"></i>
+                                                Historial de Verificaciones
+                                            </a>
+                                            <div id="tablaVerificaciones" style="display: none">
+                                            <table class="table table-active text-center" id="tabla">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Resultado</th>
+                                                        <th>Comentario</th>
+                                                        <th>Verificador</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($verification->count())
+                                                    @for ($i=0;$i<$verification->count();$i++)
+                                                        <tr>
+                                                            <td>{{ date("d/m/Y", strtotime($verification[$i]->date)) }}</td>
+                                                            <td>{{ $verification[$i]->result }}</td>
+                                                            <td>{{ $verification[$i]->comment }}</td>
+                                                            <td>{{ $verification[$i]->verificator }}</td>
+                                                        </tr>
                                                     @endfor
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="result" class="col-form-label">Resultado:</label>
-                                                <input type="text" class="form-control" id="result" name="result">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="comment" class="col-form-label">Comentario:</label>
-                                              <textarea class="form-control" id="comment" name="comment"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="verificator" class="col-form-label">Verificador:</label>
-                                                <input type="text" class="form-control" id="verificator" name="verificator">
-                                            </div>
-                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                                                    @else
+                                                    <tr>
+                                                        <td colspan="4">No hay verificaciones registradas</td>
+                                                    </tr>
+                                                    @endif
+
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                          <button type="submit" class="btn btn-primary">Agregar</button>
+
                                         </div>
-                                          </form>
-                                      </div>
                                     </div>
                                 </div>
-
-                                {{-- Tabla de Vacunas --}}
                                 
                             </div>
                             
@@ -798,15 +686,6 @@
 @section('scripts')
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
     <script>
-        $registros = document.getElementById('registros');
-        $registroAnterior = $registros;
-
-        $registros.addEventListener('change', function() {
-            mostrarOcultarTablas('tabla' + $registros.value);
-            $registros.value = "";
-
-        });
-
         function mostrarOcultarTablas(id){
             mostrado=0;
             elem = document.getElementById(id);

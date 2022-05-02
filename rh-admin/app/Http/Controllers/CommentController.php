@@ -4,38 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $comments = Comment::all();
+        dd($comments);
+        // return view('admin.comments.index', compact('comments'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        $comment = new Comment();
+
+        $comment->date = $request->date;
+        $comment->comment = $request->comment;
+        $comment->employee_id = $request->employee_id;
+        // dd($comment);
+        $comment->save();
+
+        return Redirect::to('admin/employees/'.$request->employee_id)
+        ->with('alta','ok')
+        ->with('notice', 'Comentario agregado correctamente.');
     }
 
     /**

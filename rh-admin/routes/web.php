@@ -44,6 +44,10 @@ Route::middleware([
 
     Route::resource('admin/employees', 'App\Http\Controllers\EmployeeController');
 
+    Route::resource('admin/comments', 'App\Http\Controllers\CommentController');
+    Route::resource('admin/poligraphs', 'App\Http\Controllers\PoligraphController');
+    Route::resource('admin/verifications', 'App\Http\Controllers\VerificationController');
+
 
 
 

@@ -13,16 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('poligraph_types', function (Blueprint $table) {
+        Schema::create('verification_types', function (Blueprint $table) {
             $table->id();
             $table->string('name',150);
-
-            $table->unsignedBigInteger('poligraph_id');
-
-            $table->foreign('poligraph_id')
-                    ->references('id')->on('poligraphs')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -35,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('poligraph_types');
+        Schema::dropIfExists('verification_types');
     }
 };

@@ -9,8 +9,10 @@ use App\Models\Genders;
 use App\Models\Job;
 use App\Models\Municipality;
 use App\Models\Poligraph;
+use App\Models\PoligraphType;
 use App\Models\Project;
 use App\Models\Verification;
+use App\Models\VerificationType;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -61,27 +63,30 @@ class EmployeeController extends Controller
         // return view('admin.employees.show', compact('employee','verification'));
         // // dd($employee);
 
-        $verification = Verification::
-            join('employees', 'employees.id', '=', 'verifications.employee_id')
+        $verification = Verification::orderBy('date', 'desc')
+            ->join('employees', 'employees.id', '=', 'verifications.employee_id')
             ->select('verifications.*', 'employees.name')
             ->where('employees.id', '=', $employee->id)
             ->get();
 
-        $poligraph = Poligraph::
-            join('employees', 'employees.id', '=', 'poligraphs.employee_id')
+        $poligraph = Poligraph::orderBy('date', 'desc')
+            ->join('employees', 'employees.id', '=', 'poligraphs.employee_id')
             ->select('poligraphs.*', 'employees.name')
             ->where('employees.id', '=', $employee->id)
             ->get();
 
-        $comment = Comment::
-            join('employees', 'employees.id', '=', 'comments.employee_id')
+        $comment = Comment::orderBy('date', 'desc')
+            ->join('employees', 'employees.id', '=', 'comments.employee_id')
             ->select('comments.*', 'employees.name')
             ->where('employees.id', '=', $employee->id)
             ->get();
 
-            // dd($verification);
-            
-            return view('admin.employees.show', compact('employee','verification','poligraph','comment'));
+        $poligraphtype = PoligraphType::all();
+        $verificationtype = VerificationType::all();
+
+        // dd($verificationtype);
+        
+        return view('admin.employees.show', compact('employee','verification','verificationtype','poligraph','poligraphtype','comment'));
 
             
 
