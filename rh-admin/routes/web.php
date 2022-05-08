@@ -47,6 +47,9 @@ Route::middleware([
     Route::resource('admin/comments', 'App\Http\Controllers\CommentController');
     Route::resource('admin/poligraphs', 'App\Http\Controllers\PoligraphController');
     Route::resource('admin/verifications', 'App\Http\Controllers\VerificationController');
+    Route::resource('admin/vaccines', 'App\Http\Controllers\VaccineController');
+    Route::resource('admin/capacitations', 'App\Http\Controllers\CapacitationController');
+    Route::resource('admin/attentionCalls', 'App\Http\Controllers\AttentionCallController');
 
 
 

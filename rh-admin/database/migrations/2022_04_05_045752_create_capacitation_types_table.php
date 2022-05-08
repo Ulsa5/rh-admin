@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vaccines', function (Blueprint $table) {
+        Schema::create('capacitation_types', function (Blueprint $table) {
             $table->id();
             $table->string('name',150);
+
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vaccines');
+        Schema::dropIfExists('capacitation_types');
     }
 };

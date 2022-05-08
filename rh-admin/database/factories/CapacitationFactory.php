@@ -20,7 +20,8 @@ class CapacitationFactory extends Factory
             'date' => $this->faker->date(),
             'instructor' => $this->faker->name(),
             'comment' => $this->faker->sentence(),
-            'employee_id'=> $this->faker->numberBetween(1,10)
+            'employee_id'=> $this->faker->numberBetween(1,10),
+            'capacitation_type_id'=> $this->faker->numberBetween(1,4)
         ];
     }
 }

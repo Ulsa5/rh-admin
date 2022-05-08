@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Capacitation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CapacitationController extends Controller
 {
@@ -35,7 +36,18 @@ class CapacitationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $capacitation = new Capacitation();
+
+        $capacitation->date = $request->capacitationDate;
+        $capacitation->instructor = $request->instructor;
+        $capacitation->comment = $request->capacitationComment;
+        $capacitation->employee_id = $request->employee_id;
+        $capacitation->capacitation_type_id = $request->capacitationType;
+        $capacitation->save();
+        
+        return Redirect::to('admin/employees/'.$request->employee_id)
+        ->with('alta','ok')
+        ->with('notice', 'Información de Capacitación agregada correctamente.');
     }
 
     /**

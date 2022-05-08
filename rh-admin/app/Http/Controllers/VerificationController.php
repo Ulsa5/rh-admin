@@ -47,7 +47,8 @@ class VerificationController extends Controller
         // dd($verification);
         $verification->save();
 
-        return Redirect::to('admin/employees/'.$request->employee_id.'/verifications')
+        // return Redirect::to('admin/employees/'.$request->employee_id.'/verifications')
+        return Redirect::to('admin/employees/'.$request->employee_id)
         ->with('alta','ok')
         ->with('notice', 'Información de la Verificación de datos agregada correctamente.');
     }

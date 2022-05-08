@@ -108,11 +108,10 @@ class Employee extends Model
     {
         return $this->hasMany('App\Models\Capacitation');
     }
-
-    //Relación muchos a muchos
+    
     public function vaccines()
     {
-        return $this->belongsToMany('App\Models\Vaccine');
+        return $this->hasMany('App\Models\Vaccine');
     }
 
     public function kins()

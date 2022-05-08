@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttentionCall;
+use App\Models\Capacitation;
+use App\Models\CapacitationType;
 use App\Models\Comment;
 use App\Models\Department;
 use App\Models\Employee;
@@ -11,6 +14,8 @@ use App\Models\Municipality;
 use App\Models\Poligraph;
 use App\Models\PoligraphType;
 use App\Models\Project;
+use App\Models\Vaccine;
+use App\Models\VaccineDosis;
 use App\Models\Verification;
 use App\Models\VerificationType;
 use Illuminate\Http\Request;
@@ -59,9 +64,23 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        // $verification = Verification::Find($employee);
-        // return view('admin.employees.show', compact('employee','verification'));
-        // // dd($employee);
+        $attentioncall = AttentionCall::orderBy('date', 'desc')
+            ->join('employees', 'employees.id', '=', 'attention_calls.employee_id')
+            ->select('attention_calls.*', 'employees.name')
+            ->where('employees.id', '=', $employee->id)
+            ->get();
+
+        $capacitation = Capacitation::orderBy('date', 'desc')
+            ->join('employees', 'employees.id', '=', 'capacitations.employee_id')
+            ->select('capacitations.*', 'employees.name')
+            ->where('employees.id', '=', $employee->id)
+            ->get();
+
+        $vaccine = Vaccine::orderBy('dosis_date', 'desc')
+            ->join('employees', 'employees.id', '=', 'vaccines.employee_id')
+            ->select('vaccines.*', 'employees.name')
+            ->where('employees.id', '=', $employee->id)
+            ->get();
 
         $verification = Verification::orderBy('date', 'desc')
             ->join('employees', 'employees.id', '=', 'verifications.employee_id')
@@ -83,10 +102,21 @@ class EmployeeController extends Controller
 
         $poligraphtype = PoligraphType::all();
         $verificationtype = VerificationType::all();
+        $capacitationType = CapacitationType::all();
 
         // dd($verificationtype);
         
-        return view('admin.employees.show', compact('employee','verification','verificationtype','poligraph','poligraphtype','comment'));
+        return view(
+            'admin.employees.show', compact(
+                'employee',
+                'vaccine',
+                'capacitation',
+                'capacitationType',
+                'verification','verificationtype',
+                'poligraph','poligraphtype',
+                'comment',
+                'attentioncall')
+            );
 
             
 

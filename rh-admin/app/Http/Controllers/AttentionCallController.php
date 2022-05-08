@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AttentionCall;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AttentionCallController extends Controller
 {
@@ -35,7 +36,18 @@ class AttentionCallController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attentionCall = new AttentionCall();
+
+        $attentionCall->date = $request->date;
+        $attentionCall->reason = $request->reason;
+        $attentionCall->comment = $request->comment;
+        $attentionCall->employee_id = $request->employee_id;
+        // dd($attentionCall);
+        $attentionCall->save();
+        
+        return Redirect::to('admin/employees/'.$request->employee_id)
+        ->with('alta','ok')
+        ->with('notice', 'Llamada de atención agregada correctamente.');
     }
 
     /**

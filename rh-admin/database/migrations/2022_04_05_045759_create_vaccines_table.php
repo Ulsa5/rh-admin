@@ -13,28 +13,27 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('capacitation_types', function (Blueprint $table) {
+        Schema::create('vaccines', function (Blueprint $table) {
             $table->id();
-            $table->string('name',150);
+            $table->string('dosis_type',150);
+            $table->date('dosis_date');
+            $table->string('dosis_number',50);
+            $table->string('dosis_comment',250)->nullable();
 
-            $table->unsignedBigInteger('capacitation_id');
+            $table->unsignedBigInteger('employee_id');
 
-            $table->foreign('capacitation_id')
-                    ->references('id')->on('capacitations')
+            $table->foreign('employee_id')
+                    ->references('id')->on('employees')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->timestamps();
         });
     }
+    
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('capacitation_types');
+        Schema::dropIfExists('vaccines');
     }
 };

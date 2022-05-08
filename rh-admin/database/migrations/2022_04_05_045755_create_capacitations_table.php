@@ -13,21 +13,24 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employee_vaccine', function (Blueprint $table) {
+        Schema::create('capacitations', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->string('instructor');
+            $table->string('comment',250)->nullable();
 
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('vaccine_id');
+            $table->unsignedBigInteger('capacitation_type_id');
 
             $table->foreign('employee_id')
                     ->references('id')->on('employees')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
-            $table->foreign('vaccine_id')
-            ->references('id')->on('vaccines')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->foreign('capacitation_type_id')
+                    ->references('id')->on('capacitation_types')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -40,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_vaccine');
+        Schema::dropIfExists('capacitations');
     }
 };

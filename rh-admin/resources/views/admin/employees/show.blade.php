@@ -541,6 +541,8 @@
                                                 <option value="poligrafos">Polígrafos</option>
                                                 <option value="verificaciones">Verificaciones</option>
                                                 <option value="vacunas">Vacunas</option>
+                                                <option value="capacitaciones">Capacitaciones</option>
+                                                <option value="llamadas">Llamadas de Atención</option>
                                             </select>
                                         </div>
                                     </div>
@@ -608,7 +610,7 @@
                                           {{-- </form> --}}
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="3">Cerrar</button>
                                           <button type="submit" class="btn btn-primary">Agregar</button>
                                         </div>
                                           </form>
@@ -782,6 +784,254 @@
                                 </div>
 
                                 {{-- Tabla de Vacunas --}}
+                                <div id="tablavacunas" style="display: none">
+                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddVaccines" data-whatever="">Agregar Vacuna</button>
+                                    <table class="table table-active text-center" id="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Dosis</th>
+                                                <th>Vacuna</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($vaccine->count())
+                                            @for ($i=0;$i<$vaccine->count();$i++)
+                                                <tr>
+                                                    <td>{{ date("d/m/Y", strtotime($vaccine[$i]->dosis_date)) }}</td>
+                                                    <td>{{ $vaccine[$i]->dosis_number }}</td>
+                                                    <td>{{ $vaccine[$i]->dosis_type }}</td>
+                                                    <td>
+                                                        @if($vaccine[$i]->comment!=null)
+                                                            {{ $vaccine[$i]->dosis_comment }}
+                                                        @else
+                                                            No hay comentarios
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endfor
+                                            @else
+                                            <tr>
+                                                <td colspan="4">No hay vacunas registradas</td>
+                                            </tr>
+                                            @endif
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                {{-- Modal Agregar Vacunas --}}
+                                <div class="modal fade" id="modalAddVaccines" tabindex="-1" role="dialog" aria-labelledby="modalAddVaccinesLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="modalAddVaccinesLabel">Agregar Vacuna</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="{{route('vaccines.store')}}" method="POST">
+                                              @csrf
+                                            <div class="form-group">
+                                              <label for="dosis_date" class="col-form-label">Fecha de Aplicación:</label>
+                                              <input type="date" class="form-control" id="dosis_date" name="dosis_date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dosis_number" class="col-form-label">Número de Dosis:</label>
+                                                <select class="form-control" name="dosis_number" id="dosis_number">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="Primera">Primera</option>
+                                                    <option value="Segunda">Segunda</option>
+                                                    <option value="Tercera">Tercera</option>
+                                                    <option value="Cuarta">Cuarta</option>
+                                                    <option value="Otra">Otra</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dosis_type" class="col-form-label">Tipo de Vacuna:</label>
+                                                <select class="form-control" name="dosis_type" id="dosis_type">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="Moderna">Moderna</option>
+                                                    <option value="Sputnik">Sputnik</option>
+                                                    <option value="AstraZeneca">AstraZeneca</option>
+                                                    <option value="Pfizer">Pfizer</option>
+                                                    <option value="Jhonson">Jhonson</option>
+                                                    <option value="Otra">Otra</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="dosis_comment" class="col-form-label">Comentario:</label>
+                                                <input type="text" class="form-control" id="dosis_comment" name="dosis_comment">
+                                            </div>
+                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                          <button type="submit" class="btn btn-primary">Agregar</button>
+                                        </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                </div>
+
+                                {{-- Tabla de Capacitaciones --}}
+                                <div id="tablacapacitaciones" style="display: none">
+                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddCapacitations" data-whatever="">Agregar Capacitación</button>
+                                    <table class="table table-active text-center" id="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Tipo de Capacitación</th>
+                                                <th>Instructor</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($capacitation->count())
+                                            @for ($i=0;$i<$capacitation->count();$i++)
+                                                <tr>
+                                                    <td>{{ date("d/m/Y", strtotime($capacitation[$i]->date)) }}</td>
+                                                    <td>{{ $capacitation[$i]->capacitationType->name }}</td>
+                                                    <td>{{ $capacitation[$i]->instructor }}</td>
+                                                    <td>
+                                                        @if($capacitation[$i]->comment!=null)
+                                                            {{ $capacitation[$i]->comment }}
+                                                        @else
+                                                            No hay comentarios
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endfor
+                                            @else
+                                            <tr>
+                                                <td colspan="4">No hay capacitaciones registradas</td>
+                                            </tr>
+                                            @endif
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                {{-- Modal Agregar Capacitaciones --}}
+                                <div class="modal fade" id="modalAddCapacitations" tabindex="-1" role="dialog" aria-labelledby="modalAddCapacitationsLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="modalAddCapacitationsLabel">Agregar Capacitación</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="{{route('capacitations.store')}}" method="POST">
+                                              @csrf
+                                            <div class="form-group">
+                                              <label for="capacitationDate" class="col-form-label">Fecha:</label>
+                                              <input type="date" class="form-control" id="capacitationDate" name="capacitationDate">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="capacitationType" class="col-form-label">Tipo de capacitación:</label>
+                                                <select class="form-control" name="capacitationType" id="capacitationType">
+                                                    <option value="">Seleccione</option>
+                                                    @for($i = 0; $i<$capacitationType->count(); $i++)
+                                                        <option value="{{ $capacitationType[$i]->id }}">{{ $capacitationType[$i]->name }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="instructor" class="col-form-label">Instructor:</label>
+                                                <input type="text" class="form-control" id="instructor" name="instructor">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="capacitationComment" class="col-form-label">Comentario:</label>
+                                              <textarea class="form-control" id="capacitationComment" name="capacitationComment"></textarea>
+                                            </div>
+                                            
+                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                          <button type="submit" class="btn btn-primary">Agregar</button>
+                                        </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                </div>
+
+                                {{-- Tabla de Llamadas de Atención --}}
+                                <div id="tablallamadas" style="display: none">
+                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddLlamadas" data-whatever="">Agregar Llamada de Atención</button>
+                                    <table class="table table-active text-center" id="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Razón</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($attentioncall->count())
+                                            @for ($i=0;$i<$attentioncall->count();$i++)
+                                                <tr>
+                                                    <td>{{ date("d/m/Y", strtotime($attentioncall[$i]->date)) }}</td>
+                                                    <td>{{ $attentioncall[$i]->reason }}</td>
+                                                    <td>
+                                                        @if($attentioncall[$i]->comment!=null)
+                                                            {{ $attentioncall[$i]->comment }}
+                                                        @else
+                                                            No hay comentarios
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endfor
+                                            @else
+                                            <tr>
+                                                <td colspan="4">No hay llamadas de atención registradas</td>
+                                            </tr>
+                                            @endif
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                {{-- Modal Agregar Llamada de Atención --}}
+                                <div class="modal fade" id="modalAddLlamadas" tabindex="-1" role="dialog" aria-labelledby="modalAddLlamadasLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="modalAddLlamadasLabel">Agregar Llamada de Atención</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="{{route('attentionCalls.store')}}" method="POST">
+                                              @csrf
+                                            <div class="form-group">
+                                              <label for="date" class="col-form-label">Fecha:</label>
+                                              <input type="date" class="form-control" id="date" name="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="reason" class="col-form-label">Razón o Motivo:</label>
+                                                <input type="text" class="form-control" id="reason" name="reason">
+                                              </div>
+                                            <div class="form-group">
+                                                <label for="comment" class="col-form-label">Comentario:</label>
+                                                <input type="text" class="form-control" id="comment" name="comment">
+                                            </div>
+                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                          <button type="submit" class="btn btn-primary">Agregar</button>
+                                        </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                </div>
                                 
                             </div>
                             

@@ -9,13 +9,20 @@ class Vaccine extends Model
 {
     use HasFactory;
 
-    public function vaccinedosis()
-    {
-        return $this->belongsToMany('App\Models\VaccineDosis');
-    }
+    //Relación muchos a muchos inversa polimorfica
+    // public function employees()
+    // {
+    //     return $this->morphedByMany('App\Models\Employee', 'vaccineable');
+    // }
 
-    public function employees()
+    // public function vaccineDoses()
+    // {
+    //     return $this->morphedByMany('App\Models\VaccineDosis', 'vaccineable');
+    // }
+
+    //Relación inversa vacunas->empleados
+    public function employee()
     {
-        return $this->belongsToMany('App\Models\Employee');
+        return $this->belongsTo('App\Models\Employee');
     }
 }

@@ -14,8 +14,8 @@ class Capacitation extends Model
         return $this->belongsTo('App\Models\Employee');
     }
 
-    public function capacitationTypes()
+    public function capacitationType()
     {
-        return $this->hasMany('App\Models\CapacitationType');
+        return $this->belongsTo('App\Models\CapacitationType');
     }
 }

@@ -9,8 +9,8 @@ class CapacitationType extends Model
 {
     use HasFactory;
 
-    public function capacitation()
+    public function capacitations()
     {
-        return $this->belongsTo('App\Models\Capacitaion');
+        return $this->hasMany('App\Models\Capacitation');
     }
 }

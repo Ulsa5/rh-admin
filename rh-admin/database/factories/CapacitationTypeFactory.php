@@ -18,7 +18,7 @@ class CapacitationTypeFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'capacitation_id' => $this->faker->numberBetween(1,2)
+            // 'capacitation_id' => $this->faker->numberBetween(1,2)
         ];
     }
 }

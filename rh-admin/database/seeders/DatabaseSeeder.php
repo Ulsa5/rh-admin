@@ -34,6 +34,7 @@ use App\Models\User;
 use App\Models\Vacation;
 use App\Models\Vaccine;
 use App\Models\VaccineDosis;
+use App\Models\VaccineVaccineDose;
 use App\Models\Verification;
 use App\Models\VerificationType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -70,11 +71,17 @@ class DatabaseSeeder extends Seeder
         ProjectType::factory(5)->create();
         Role::factory(15)->create();
         Section::factory(20)->create();
-        VaccineDosis::factory(15)->create();
-        Vaccine::factory(5)->create();
         
+        // $this->call(VaccineDoseSeeder::class);
+        // VaccineDosis::factory(15)->create();
+
+        // $this->call(VaccineSeeder::class);
+
         PoligraphType::factory(5)->create();
         VerificationType::factory(5)->create();
+        $this->call(CapacitationTypeSeeder::class);
+        // CapacitationType::factory(4)->create();
+
 
 
         //Necesita el company_id
@@ -99,6 +106,10 @@ class DatabaseSeeder extends Seeder
         Capacitation::factory(10)->create();
         Comment::factory(10)->create();
         License::factory(10)->create();
+        Vaccine::factory(15)->create();
+
+        
+        
         
         Poligraph::factory(10)->create();
         Suspension::factory(15)->create();
@@ -108,8 +119,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        //Necesita el capacitation_id
-        CapacitationType::factory(4)->create();
+        
 
 
         //Necesita el kin_type_id

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vaccine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class VaccineController extends Controller
 {
@@ -35,7 +36,19 @@ class VaccineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vaccine = new Vaccine();
+
+        $vaccine->dosis_date = $request->dosis_date;
+        $vaccine->dosis_type = $request->dosis_type;
+        $vaccine->dosis_number = $request->dosis_number;
+        $vaccine->dosis_comment = $request->dosis_comment;
+        $vaccine->employee_id = $request->employee_id;
+        // dd($vaccine);
+        $vaccine->save();
+        
+        return Redirect::to('admin/employees/'.$request->employee_id)
+        ->with('alta','ok')
+        ->with('notice', 'Información de Vacunación agregada correctamente.');
     }
 
     /**
