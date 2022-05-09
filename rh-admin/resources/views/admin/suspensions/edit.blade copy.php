@@ -1,12 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.base')
 
-@section('title', 'RH Admin')
-
-@section('content_header')
 <div class="container">
     <h1 class="text-center mt-3">RH Admin</h1>
 </div>
-@stop
 
 @section('content')
 <div class="container mt-4">
@@ -50,7 +46,7 @@
                         <div class="row">
                             <div class="form-group row mt-4">
                                 <div class="col-sm-6"></div>
-                                <div class="row-sm-6">
+                                <div class="col-sm-6">
                                     <a href="{{ route('employees.show',$suspension->employee_id) }}" class="btn btn-secondary" tabindex="5">Cancelar</a>
                                     <button type="submit" class="btn btn-primary" tabindex="4">Actualizar</button>
                                 </div>
@@ -62,15 +58,9 @@
         </div>
     </div>
 </div>
+@endsection
 
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-
-@stop
-
-@section('js')
+@section('scripts')
     <script>
         var codigo = document.getElementById("code");
         var nombre = document.getElementById("name");
@@ -89,4 +79,4 @@
             });
         })
     </script>
-@stop
+@endsection
