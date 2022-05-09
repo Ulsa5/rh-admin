@@ -387,7 +387,7 @@
                             
                         </div>
 
-                        {{-- Documentos y Afiliaciones --}}
+                        {{-- Documentos --}}
                         <div class="tab-pane fade" id="nav-documentos" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <h3>Documentos</h3>
                             <br>
@@ -523,8 +523,9 @@
                             </div>
                             
                         </div>
+                        {{-- Fin Documentos --}}
 
-                        {{-- Comentarios, etc. --}}
+                        {{-- Otros --}}
                         <div class="tab-pane fade" id="nav-otros" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <h3>Otros</h3>
                             <br>
@@ -543,6 +544,8 @@
                                                 <option value="vacunas">Vacunas</option>
                                                 <option value="capacitaciones">Capacitaciones</option>
                                                 <option value="llamadas">Llamadas de Atención</option>
+                                                <option value="vacaciones">Vacaciones</option>
+                                                <option value="suspensiones">Suspensiones</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1032,13 +1035,187 @@
                                       </div>
                                     </div>
                                 </div>
+
+                                {{-- Tabla de Vacaciones --}}
+                                <div id="tablavacaciones" style="display: none">
+                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddVacaciones" data-whatever="">Agregar Vacaciones</button>
+                                    <table class="table table-active text-center" id="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Periodo</th>
+                                                <th>Comentario</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($vacation->count())
+                                            @for ($i=0;$i<$vacation->count();$i++)
+                                                <tr>
+                                                    <td>{{ date("d/m/Y", strtotime($vacation[$i]->date)) }}</td>
+                                                    <td>{{ $vacation[$i]->period }}</td>
+                                                    <td>
+                                                        @if($vacation[$i]->comment!=null)
+                                                            {{ $vacation[$i]->comment }}
+                                                        @else
+                                                            No hay comentarios
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{-- <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalEditVacaciones" data-whatever="">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button> --}}
+                                                        <a href="{{ route('vacations.edit', $vacation[$i],$employee) }}" class="btn btn-success">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <form action="{{ route('vacations.destroy', $vacation[$i]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endfor
+                                            @else
+                                            <tr>
+                                                <td colspan="4">No hay periodos vacacionales registrados</td>
+                                            </tr>
+                                            @endif
+
+                                        </tbody>
+                                    </table>
+                                </div>
                                 
+                                {{-- Modal Agregar Vacaciones --}}
+                                <div class="modal fade" id="modalAddVacaciones" tabindex="-1" role="dialog" aria-labelledby="modalAddVacaciones" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="modalAddVacacionesLabel">Agregar Período vacacional</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="{{route('vacations.store')}}" method="POST">
+                                              @csrf
+                                            <div class="form-group">
+                                              <label for="date" class="col-form-label">Fecha:</label>
+                                              <input type="date" class="form-control" id="date" name="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="period" class="col-form-label">Período:</label>
+                                                <input type="text" class="form-control" id="period" name="period">
+                                              </div>
+                                            <div class="form-group">
+                                                <label for="comment" class="col-form-label">Comentario:</label>
+                                                <input type="text" class="form-control" id="comment" name="comment">
+                                            </div>
+                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="submit" class="btn btn-primary">Agregar</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                          {{-- <button type="submit" class="btn btn-primary">Agregar</button> --}}
+                                        </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                </div>
+                                {{-- Fin Tabla de Vacaciones --}}
+
+                                {{-- Tabla de Suspensiones --}}
+                                <div id="tablasuspensiones" style="display: none">
+                                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddSuspensiones" data-whatever="">Agregar Suspensión</button>
+                                    <table class="table table-active text-center" id="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Razón</th>
+                                                <th>Comentario</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($suspension->count())
+                                            @for ($i=0;$i<$suspension->count();$i++)
+                                                <tr>
+                                                    <td>{{ date("d/m/Y", strtotime($suspension[$i]->date)) }}</td>
+                                                    <td>{{ $suspension[$i]->reason }}</td>
+                                                    <td>
+                                                        @if($suspension[$i]->comment!=null)
+                                                            {{ $suspension[$i]->comment }}
+                                                        @else
+                                                            No hay comentarios
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('suspensions.edit', $suspension[$i],$employee) }}" class="btn btn-success">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <form action="{{ route('suspensions.destroy', $suspension[$i]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endfor
+                                            @else
+                                            <tr>
+                                                <td colspan="4">No hay suspensiones registradas</td>
+                                            </tr>
+                                            @endif
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                {{-- Modal Agregar Suspensiones --}}
+                                <div class="modal fade" id="modalAddSuspensiones" tabindex="-1" role="dialog" aria-labelledby="modalAddSuspensiones" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="modalAddSuspensionesLabel">Agregar Suspensión</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="{{route('suspensions.store')}}" method="POST">
+                                              @csrf
+                                            <div class="form-group">
+                                              <label for="date" class="col-form-label">Fecha:</label>
+                                              <input type="date" class="form-control" id="date" name="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="period" class="col-form-label">Razón o Motivo:</label>
+                                                <input type="text" class="form-control" id="period" name="reason">
+                                              </div>
+                                            <div class="form-group">
+                                                <label for="comment" class="col-form-label">Comentario:</label>
+                                                <input type="text" class="form-control" id="comment" name="comment">
+                                            </div>
+                                            <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="submit" class="btn btn-primary">Agregar</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                </div>
+                                {{-- Fin Modal Agregar Suspensiones --}}
+                                {{-- Fin Tabla de Suspensiones --}}
                             </div>
-                            
                         </div>
-
-                      </div>
-
+                        {{-- Fin Otros --}}
+                    </div>
                 </div>
             </div>
         </div>

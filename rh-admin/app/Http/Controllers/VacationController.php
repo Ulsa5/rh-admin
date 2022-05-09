@@ -2,84 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class VacationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
-    }
+        $vacation = new Vacation();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Http\Response
-     */
+        $vacation->date = $request->date;
+        $vacation->period = $request->period;
+        $vacation->comment = $request->comment;
+        $vacation->employee_id = $request->employee_id;
+        // dd($vacation);
+        $vacation->save();
+        
+        return Redirect::to('admin/employees/'.$request->employee_id)
+        ->with('alta','ok')
+        ->with('notice', 'Periodo vacacional agregado correctamente.');
+    }
+    
     public function show(Vacation $vacation)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Vacation $vacation)
     {
-        //
+        return view('admin.vacations.edit', compact('vacation'));
+        
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Vacation $vacation)
     {
-        //
-    }
+        $vacation->date = $request->date;
+        $vacation->period = $request->period;
+        $vacation->comment = $request->comment;
+        $vacation->employee_id = $request->employee_id;
+        // dd($vacation);
+        $vacation->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Http\Response
-     */
+        return Redirect::to('admin/employees/'.$request->employee_id)
+        ->with('edited','ok')
+        ->with('notice', 'Periodo vacacional actualizado correctamente.');
+    }
+    
     public function destroy(Vacation $vacation)
     {
-        //
+        dd($vacation);
+        $vacation->delete();
+        
+        return Redirect::to('admin/employees/'.$vacation->employee_id)
+        ->with('eliminar','ok')
+        ->with('notice', 'Periodo vacacional eliminado correctamente.');
     }
 }

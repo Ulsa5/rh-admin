@@ -50,6 +50,8 @@ Route::middleware([
     Route::resource('admin/vaccines', 'App\Http\Controllers\VaccineController');
     Route::resource('admin/capacitations', 'App\Http\Controllers\CapacitationController');
     Route::resource('admin/attentionCalls', 'App\Http\Controllers\AttentionCallController');
+    Route::resource('admin/vacations', 'App\Http\Controllers\VacationController');
+    Route::resource('admin/suspensions', 'App\Http\Controllers\SuspensionController');
 
 
 

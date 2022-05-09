@@ -14,8 +14,9 @@ use App\Models\Municipality;
 use App\Models\Poligraph;
 use App\Models\PoligraphType;
 use App\Models\Project;
+use App\Models\Suspension;
+use App\Models\Vacation;
 use App\Models\Vaccine;
-use App\Models\VaccineDosis;
 use App\Models\Verification;
 use App\Models\VerificationType;
 use Illuminate\Http\Request;
@@ -35,35 +36,30 @@ class EmployeeController extends Controller
         return view('admin.employees.index', compact('employees','projects','jobs','municipalities','departments','genders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Employee $employee)
     {
+        $suspension = Suspension::orderBy('date','desc')
+            ->join('employees','employees.id','=','suspensions.employee_id')
+            ->select('suspensions.*','employees.name')
+            ->where('employees.id',$employee->id)
+            ->get();
+
+        $vacation = Vacation::orderBy('date', 'desc')
+            ->join('employees', 'employees.id', '=', 'vacations.employee_id')
+            ->select('vacations.*','employees.name')
+            ->where('employees.id', $employee->id)
+            ->get();
+
         $attentioncall = AttentionCall::orderBy('date', 'desc')
             ->join('employees', 'employees.id', '=', 'attention_calls.employee_id')
             ->select('attention_calls.*', 'employees.name')
@@ -103,19 +99,19 @@ class EmployeeController extends Controller
         $poligraphtype = PoligraphType::all();
         $verificationtype = VerificationType::all();
         $capacitationType = CapacitationType::all();
-
-        // dd($verificationtype);
         
         return view(
             'admin.employees.show', compact(
                 'employee',
                 'vaccine',
-                'capacitation',
-                'capacitationType',
+                'capacitation', 'capacitationType',
                 'verification','verificationtype',
                 'poligraph','poligraphtype',
                 'comment',
-                'attentioncall')
+                'attentioncall',
+                'vacation',
+                'suspension',
+                )
             );
 
             
