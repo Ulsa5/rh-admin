@@ -16,17 +16,19 @@
 Una vez clonado el respositorio, debes acceder desde la terminal de git o cmd a la carpeta que se descargó y realizar los siguientes pasos:
 
 - Instalar [composer](https://getcomposer.org/).
+- Crear la base de datos en MySQL _(el nombre que se le colocará aquí, debe colocarse en el .env)_.
+- Copiar el archivo **.env.example** y nombrarlo **.env**.
+    - Agregar los datos de la base de datos. Si es MySQL:
+        - Indicar el host de la base de datos _(local o web)_.
+        - Indicar el puerto de la base de datos _(normalmente es 3306 para MySQL)_.
+        - Indicar el nombre de la base de datos.
+        - Indicar el nombre de usuario de la base de datos.
+        - Indicar la contraseña de la base de datos.
+        - Cerrar el archivo **.env**.
+- Generar una nueva llave de seguridad con el comando **php artisan key:generate**.
+- Correr las migraciones _(php artisan migrate)_. Si tenemos datos con seeder, correr el comando _(php artisan migrate --seed)_.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
+Si hicimos los pasos anteriores, nuestro proyecto debería funcionar correctamente. Podemos probarlo con el servidor virtual de laravel con el comando **_php artisan serve_**.
 
 
 
